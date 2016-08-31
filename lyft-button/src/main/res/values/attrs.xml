@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LyftButton">
+        <attr name="lyftStyle" format="enum">
+            <enum name="lyftMulberryDark" value="0" />
+            <enum name="lyftMulberryLight" value="1" />
+            <enum name="lyftHotPink" value="2" />
+            <enum name="lyftMultiColor" value="3" />
+            <enum name="lyftLauncher" value="4" />
+        </attr>
+    </declare-styleable>
+</resources>

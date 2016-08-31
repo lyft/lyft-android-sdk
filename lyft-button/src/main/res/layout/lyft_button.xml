@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/lyft_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="5dp"
+        android:contentDescription="@string/lyft_icon_content_desc"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/get_ride_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-3dp"
+            android:text="@string/get_a_ride_text"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/ridetype_eta_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginTop="-3dp"
+            android:textSize="12sp"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cost_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="8dp"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/prime_time_icon"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="4dp"
+            android:contentDescription="@string/prime_time_icon_desc"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/cost_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            />
+
+    </LinearLayout>
+</merge>

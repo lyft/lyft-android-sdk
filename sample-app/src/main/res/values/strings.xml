@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Sample app</string>
+    <string name="loading_text">Loading&#8230;</string>
+    <string name="ride_type_label">Ride type&#x3a;</string>
+</resources>

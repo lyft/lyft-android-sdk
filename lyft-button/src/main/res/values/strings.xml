@@ -1,0 +1,8 @@
+<resources>
+    <string name="get_a_ride_text">Get a ride</string>
+    <string name="lyft_icon_content_desc">Lyft icon</string>
+    <string name="cost_estimate_range">$%1$d-%2$d</string>
+    <string name="fixed_cost_amount">$%1$.2f</string>
+    <string name="ridetype_eta_text">%1$s in %2$d min</string>
+    <string name="prime_time_icon_desc">Prime time icon</string>
+</resources>

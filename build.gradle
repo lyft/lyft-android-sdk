@@ -1,0 +1,49 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.3'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+subprojects { subProject ->
+
+    afterEvaluate {
+        if (getPlugins().hasPlugin('com.android.application') || getPlugins().hasPlugin('com.android.library')) {
+
+            configure(android.lintOptions) {
+                lintConfig rootProject.file('gradle/lint.xml')
+                warningsAsErrors false
+            }
+        }
+    }
+}
+
+subprojects {
+    ext.androidBuildToolsVersion = "23.0.3"
+    ext.androidCompileSDK = 23
+    ext.androidMinSdk = 15
+    ext.androidSupportLibrariesVersion = '23.4.0'
+    ext.androidTargetSDK = 23
+    ext.googlePlayVersion = '9.4.0'
+    ext.jetbrainsVersion = '15.0'
+    ext.junitVersion = '4.12'
+    ext.lyftSdkVersionCode = 1
+    ext.lyftSdkVersionName = VERSION_NAME
+    ext.mockitoVersion = '1.10.19'
+    ext.okhttpVersion = '3.3.1'
+    ext.retrofitVersion = '2.1.0'
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

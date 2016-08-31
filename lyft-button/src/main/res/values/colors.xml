@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grey_1">#F3F5F5</color>
+    <color name="hot_pink">#FF00BF</color>
+    <color name="hot_pink_2">#cf00b2</color>
+    <color name="hot_pink_3">#b8009f</color>
+    <color name="mulberry">#352384</color>
+    <color name="mulberry_2">#3F0280</color>
+    <color name="dark_blue_1">#2a025d</color>
+    <color name="dark_blue_2">#1e0142</color>
+    <color name="grey_6">#F3F3F5</color>
+    <color name="moon">#D8DCE6</color>
+</resources>

@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+targetCompatibility = '1.7'
+sourceCompatibility = '1.7'
+
+dependencies {
+    compile 'com.squareup.okhttp3:okhttp:' + okhttpVersion
+    compile 'com.squareup.retrofit2:retrofit:' + retrofitVersion
+    compile 'com.squareup.retrofit2:converter-gson:' + retrofitVersion
+    compile 'org.jetbrains:annotations-java5:' + jetbrainsVersion
+    compileOnly 'com.squareup.retrofit2:adapter-rxjava:' + retrofitVersion
+
+    testCompile 'junit:junit:' + junitVersion
+    testCompile 'org.mockito:mockito-core:' + mockitoVersion
+}
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

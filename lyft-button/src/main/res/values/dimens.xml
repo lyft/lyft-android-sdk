@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_padding">8dp</dimen>
+    <dimen name="button_corner_radius">4dp</dimen>
+    <dimen name="button_width">260dp</dimen>
+    <dimen name="button_height">50dp</dimen>
+</resources>
