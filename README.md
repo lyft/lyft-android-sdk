@@ -19,14 +19,14 @@ repositories {
 }
 
 dependencies {
-    compile 'com.lyft.lyft-android-sdk:1.0.0'
+    compile 'com.lyft:lyft-android-sdk:1.0.0'
 }
 ```
 
 If you only want to use the [Lyft API Wrapper](https://github.com/lyft/lyft-android-sdk#lyft-api-wrapper) or [Deeplink](https://github.com/lyft/lyft-android-sdk#deeplinking) portion of the SDK, you can pull them individually.
 ```gradle
-compile 'com.lyft.lyft-android-sdk-networking:1.0.0'  // Lyft API Wrapper
-compile 'com.lyft.lyft-android-sdk-deeplink:1.0.0'    // Deeplink
+compile 'com.lyft:lyft-android-sdk-networking:1.0.0'  // Lyft API Wrapper
+compile 'com.lyft:lyft-android-sdk-deeplink:1.0.0'    // Deeplink
 ```
 
 ### Maven:
@@ -60,7 +60,7 @@ ApiConfig apiConfig = new ApiConfig.Builder()
         .setClientToken("your_client_token")
         .build();
 
-lyftButton = (LyftButton) findViewById(R.id.lyft_button);
+LyftButton lyftButton = (LyftButton) findViewById(R.id.lyft_button);
 lyftButton.setApiConfig(apiConfig);
 
 RideParams.Builder rideParamsBuilder = new RideParams.Builder()
