@@ -11,6 +11,7 @@ import com.lyft.testutils.MockGoogleApi;
 import com.lyft.testutils.MockLyftPublicApi;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.Before;
@@ -246,6 +247,7 @@ public class LyftButtonCallManagerTest {
         callManager.load(callback);
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        verify(callback).onSuccess(any(CostEstimate.class));
         verify(callback).onFailure(any(Throwable.class));
     }
 
@@ -264,6 +266,7 @@ public class LyftButtonCallManagerTest {
         callManager.load(callback);
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        verify(callback).onSuccess(any(CostEstimate.class));
         verify(callback).onFailure(any(Throwable.class));
     }
 
@@ -283,6 +286,30 @@ public class LyftButtonCallManagerTest {
         callManager.load(callback);
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        verify(callback).onSuccess(any(CostEstimate.class));
+        verify(callback).onFailure(any(Throwable.class));
+    }
+
+    @Test
+    public void loadTest_etaFailureNullEtaSeconds() throws InterruptedException {
+        RideParams rideParams = new RideParams.Builder()
+                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
+                .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
+                .build();
+        callManager.setRideParams(rideParams);
+
+        List<Eta> etas = new ArrayList<>();
+        Eta eta = new Eta(RideTypeEnum.PLUS.toString(), RideTypeEnum.PLUS.getDisplayName(), null);
+        etas.add(eta);
+        lyftPublicApi.setCustomEtaEstimateResponse(new EtaEstimateResponse(etas));
+
+        CountDownLatch countDownLatch = new CountDownLatch(2);
+        LyftButton.ResultLoadedCallback callback = spy(new Callback(countDownLatch, false, true, true));
+        callManager.load(callback);
+
+        assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        verify(callback).onSuccess(any(CostEstimate.class));
         verify(callback).onFailure(any(Throwable.class));
     }
 
@@ -302,6 +329,7 @@ public class LyftButtonCallManagerTest {
         callManager.load(callback);
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        verify(callback).onSuccess(any(Eta.class));
         verify(callback).onFailure(any(Throwable.class));
     }
 
@@ -321,6 +349,7 @@ public class LyftButtonCallManagerTest {
         callManager.load(callback);
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        verify(callback).onSuccess(any(Eta.class));
         verify(callback).onFailure(any(Throwable.class));
     }
 
@@ -340,6 +369,7 @@ public class LyftButtonCallManagerTest {
         callManager.load(callback);
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        verify(callback).onSuccess(any(Eta.class));
         verify(callback).onFailure(any(Throwable.class));
     }
 

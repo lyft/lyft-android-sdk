@@ -29,7 +29,7 @@ public class DeepLinkTest {
         String deeplinkString = DeepLink.createDeepLinkString(deepLinkParams);
         assertEquals("lyft://ridetype?id=" + RIDETYPE + "&pickup[latitude]=" + PICKUP_LAT + "&pickup[longitude]=" +
                 PICKUP_LNG + "&pickup[address]=" + PICKUP_ADDR + "&destination[latitude]=" + DROPOFF_LAT +
-                "&destination[longitude]=" + DROPOFF_LNG + "&destination[address]=" + DROPOFF_ADDR + "&clientId=" + CLIENT_ID,
+                "&destination[longitude]=" + DROPOFF_LNG + "&destination[address]=" + DROPOFF_ADDR + "&partner=" + CLIENT_ID,
                 deeplinkString);
     }
 
@@ -71,7 +71,7 @@ public class DeepLinkTest {
 
         String deeplinkString = DeepLink.createDeepLinkString(deepLinkParams);
         assertEquals("lyft://ridetype?id=" + RIDETYPE + "&pickup[address]=" + PICKUP_ADDR +
-                "&destination[address]=" + DROPOFF_ADDR + "&clientId=" + CLIENT_ID,
+                "&destination[address]=" + DROPOFF_ADDR + "&partner=" + CLIENT_ID,
                 deeplinkString);
     }
 

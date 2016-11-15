@@ -153,7 +153,7 @@ class LyftButtonCallManager {
             public void onResponse(Call<EtaEstimateResponse> call, Response<EtaEstimateResponse> response) {
                 Eta eta = getEtaForRideType(response.body(), rideParams.getRideTypeEnum().toString());
 
-                if (eta != null) {
+                if (eta != null && eta.eta_seconds != null) {
                     callback.onSuccess(eta);
                 } else {
                     onFailure(call, new NullPointerException("EtaEstimateResponse is null or empty."));
