@@ -9,6 +9,7 @@ import android.net.Uri;
 public class DeepLink {
 
     private static final String LYFT_PACKAGE_NAME = "me.lyft.android";
+    private static final String SDK_VERSION = "1.0.1";
 
     /**
      * @return true if Lyft app is installed on the device.
@@ -33,10 +34,13 @@ public class DeepLink {
      */
     public static boolean launchLyftApp(Context context, DeepLinkParams deepLinkParams) {
         if (!isLyftInstalled(context)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(
-                    "https://play.google.com/store/apps/details?id=" + LYFT_PACKAGE_NAME + "&referrer=" + deepLinkParams.getClientId()));
-            context.startActivity(intent);
+            String url = "https://www.lyft.com/signup/SDKSIGNUP?clientId=" + deepLinkParams.getClientId()
+                    + "&sdkName=android&sdkVersion=" + SDK_VERSION;
+            Uri webpage = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+            if (intent.resolveActivity(context.getPackageManager()) != null) {
+                context.startActivity(intent);
+            }
             return false;
         }
 
@@ -86,7 +90,7 @@ public class DeepLink {
         }
 
         if (deepLinkParams.getClientId() != null) {
-            sb.append("&clientId=");
+            sb.append("&partner=");
             sb.append(deepLinkParams.getClientId());
         }
 
