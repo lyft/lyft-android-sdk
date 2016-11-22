@@ -1,3 +1,8 @@
+Version 1.0.2 *(2016-11-22)*
+----------------------------
+Coupon code parameter in ridetype deeplink
+Expose address parameters in deeplink
+
 Version 1.0.1 *(2016-11-15)*
 ----------------------------
 Small deeplink fixes.
