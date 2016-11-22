@@ -6,6 +6,7 @@ public class DeepLinkParams {
 
     private final String clientId;
     private final String rideType;
+    private final String couponCode;
     private final String pickupAddr;
     private final Double pickupLat;
     private final Double pickupLng;
@@ -13,10 +14,11 @@ public class DeepLinkParams {
     private final Double dropoffLat;
     private final Double dropoffLng;
 
-    private DeepLinkParams(String clientId, String rideType, String pickupAddr, Double pickupLat, Double pickupLng, String dropoffAddr,
-            Double dropoffLat, Double dropoffLng) {
+    private DeepLinkParams(String clientId, String rideType, String couponCode, String pickupAddr, Double pickupLat, Double pickupLng,
+            String dropoffAddr, Double dropoffLat, Double dropoffLng) {
         this.clientId = clientId;
         this.rideType = rideType;
+        this.couponCode = couponCode;
         this.pickupAddr = pickupAddr;
         this.pickupLat = pickupLat;
         this.pickupLng = pickupLng;
@@ -33,6 +35,11 @@ public class DeepLinkParams {
     @Nullable
     public String getRideType() {
         return rideType;
+    }
+
+    @Nullable
+    public String getCouponCode() {
+        return couponCode;
     }
 
     @Nullable
@@ -85,6 +92,7 @@ public class DeepLinkParams {
 
         private String clientId;
         private String rideType = "lyft";
+        private String couponCode;
         private String pickupAddr;
         private Double pickupLat;
         private Double pickupLng;
@@ -93,7 +101,7 @@ public class DeepLinkParams {
         private Double dropoffLng;
 
         public DeepLinkParams build() {
-            return new DeepLinkParams(clientId, rideType, pickupAddr, pickupLat, pickupLng, dropoffAddr, dropoffLat, dropoffLng);
+            return new DeepLinkParams(clientId, rideType, couponCode, pickupAddr, pickupLat, pickupLng, dropoffAddr, dropoffLat, dropoffLng);
         }
 
         public Builder setClientId(String clientId) {
@@ -106,12 +114,17 @@ public class DeepLinkParams {
             return this;
         }
 
-        Builder setPickupAddress(String pickupAddr) {
+        public Builder setCouponCode(String couponCode) {
+            this.couponCode = couponCode;
+            return this;
+        }
+
+        public Builder setPickupAddress(String pickupAddr) {
             this.pickupAddr = pickupAddr;
             return this;
         }
 
-        Builder setDropoffAddress(String dropoffAddr) {
+        public Builder setDropoffAddress(String dropoffAddr) {
             this.dropoffAddr = dropoffAddr;
             return this;
         }

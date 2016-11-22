@@ -14,6 +14,7 @@ public class DeepLinkTest {
     private static final Double DROPOFF_LNG = 4.0;
     private static final String PICKUP_ADDR = "185 Berry Street, San Francisco, CA";
     private static final String DROPOFF_ADDR = "2300 Harrison Street, San Francisco, CA";
+    private static final String COUPON_CODE = "coupon";
 
     @Test
     public void createDeepLinkStringTest_full() {
@@ -24,12 +25,14 @@ public class DeepLinkTest {
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .setPickupAddress(PICKUP_ADDR)
                 .setDropoffAddress(DROPOFF_ADDR)
+                .setCouponCode(COUPON_CODE)
                 .build();
 
         String deeplinkString = DeepLink.createDeepLinkString(deepLinkParams);
         assertEquals("lyft://ridetype?id=" + RIDETYPE + "&pickup[latitude]=" + PICKUP_LAT + "&pickup[longitude]=" +
                 PICKUP_LNG + "&pickup[address]=" + PICKUP_ADDR + "&destination[latitude]=" + DROPOFF_LAT +
-                "&destination[longitude]=" + DROPOFF_LNG + "&destination[address]=" + DROPOFF_ADDR + "&partner=" + CLIENT_ID,
+                "&destination[longitude]=" + DROPOFF_LNG + "&destination[address]=" + DROPOFF_ADDR + "&partner=" + CLIENT_ID +
+                "&credits=" + COUPON_CODE,
                 deeplinkString);
     }
 
