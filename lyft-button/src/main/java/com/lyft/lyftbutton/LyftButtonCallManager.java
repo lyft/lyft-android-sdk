@@ -70,6 +70,7 @@ class LyftButtonCallManager {
                 .setRideType(rideParams.getRideTypeEnum().toString())
                 .setPickupLocation(rideParams.getPickupLat(), rideParams.getPickupLng())
                 .setDropoffLocation(rideParams.getDropoffLat(), rideParams.getDropoffLng())
+                .setPromoCode(rideParams.getPromoCode())
                 .build();
 
         DeepLink.launchLyftApp(context, deepLinkParams);
