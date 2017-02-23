@@ -11,9 +11,10 @@ public class RideParams {
     private final String dropoffAddr;
     private final Double dropoffLat;
     private final Double dropoffLng;
+    private final String promoCode;
 
     private RideParams(RideTypeEnum rideTypeEnum, String pickupAddr, Double pickupLat, Double pickupLng, String dropoffAddr,
-            Double dropoffLat, Double dropoffLng) {
+            Double dropoffLat, Double dropoffLng, String promoCode) {
         this.rideTypeEnum = rideTypeEnum;
         this.pickupAddr = pickupAddr;
         this.pickupLat = pickupLat;
@@ -21,6 +22,7 @@ public class RideParams {
         this.dropoffAddr = dropoffAddr;
         this.dropoffLat = dropoffLat;
         this.dropoffLng = dropoffLng;
+        this.promoCode = promoCode;
     }
 
     public RideTypeEnum getRideTypeEnum() {
@@ -57,6 +59,11 @@ public class RideParams {
         return dropoffLng;
     }
 
+    @Nullable
+    public String getPromoCode() {
+        return promoCode;
+    }
+
     public boolean isPickupLatLngSet() {
         return pickupLat != null && pickupLng != null;
     }
@@ -86,9 +93,10 @@ public class RideParams {
         private String dropoffAddr;
         private Double dropoffLat;
         private Double dropoffLng;
+        private String promoCode;
 
         public RideParams build() {
-            return new RideParams(rideTypeEnum, pickupAddr, pickupLat, pickupLng, dropoffAddr, dropoffLat, dropoffLng);
+            return new RideParams(rideTypeEnum, pickupAddr, pickupLat, pickupLng, dropoffAddr, dropoffLat, dropoffLng, promoCode);
         }
 
         public Builder() {}
@@ -127,6 +135,11 @@ public class RideParams {
         public Builder setDropoffLocation(double dropoffLat, double dropoffLng) {
             this.dropoffLat = dropoffLat;
             this.dropoffLng = dropoffLng;
+            return this;
+        }
+
+        public Builder setPromoCode(String promoCode) {
+            this.promoCode = promoCode;
             return this;
         }
     }

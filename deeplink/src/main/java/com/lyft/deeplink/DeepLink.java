@@ -9,7 +9,7 @@ import android.net.Uri;
 public class DeepLink {
 
     private static final String LYFT_PACKAGE_NAME = "me.lyft.android";
-    private static final String SDK_VERSION = "1.0.2";
+    private static final String SDK_VERSION = "1.0.3";
 
     /**
      * @return true if Lyft app is installed on the device.
@@ -94,9 +94,9 @@ public class DeepLink {
             sb.append(deepLinkParams.getClientId());
         }
 
-        if (deepLinkParams.getCouponCode() != null) {
+        if (deepLinkParams.getPromoCode() != null) {
             sb.append("&credits=");
-            sb.append(deepLinkParams.getCouponCode());
+            sb.append(deepLinkParams.getPromoCode());
         }
 
         return sb.toString();

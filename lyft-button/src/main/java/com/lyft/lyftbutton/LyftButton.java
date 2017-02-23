@@ -197,7 +197,7 @@ public class LyftButton extends LinearLayout {
         }
     }
 
-    interface ResultLoadedCallback {
+    public interface ResultLoadedCallback {
 
         void onSuccess(Eta eta);
 
