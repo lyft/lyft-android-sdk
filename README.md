@@ -1,5 +1,7 @@
 # Lyft Android SDK
 
+[![API Testing](https://img.shields.io/badge/API%20Test-RapidAPI-blue.svg)](https://rapidapi.com/package/Lyft/functions?utm_source=LyftGithub&utm_medium=button&utm_content=Vender_GitHub)
+
 The Official Lyft Android SDK makes it easy to integrate Lyft into your app. More specifically, it provides:
 - An easily configurable Lyft button which can display cost, ETA, and ride type. Tapping the button deeplinks into the Lyft app with pre-filled pickup/destination/ridetype.
 - A Java interface for making sync/async calls to Lyft's REST APIs
