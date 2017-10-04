@@ -1,6 +1,7 @@
 package com.lyft.networking.apis;
 
 import com.lyft.networking.ApiConfig;
+import com.lyft.networking.apiObjects.EtaEstimateResponse;
 import com.lyft.networking.apiObjects.RideRequest;
 import com.lyft.networking.apiObjects.RideRequestResponse;
 import com.lyft.networking.apiObjects.UserRideHistoryResponse;
@@ -68,10 +69,10 @@ public interface LyftUserApiRx
      * specified location
      * @param lat   Pick up location latitude
      * @param lng   Pick up location longitude
-     * @return Retrofit Call of {@link DriverEtaResponse} type.
+     * @return Retrofit Call of {@link EtaEstimateResponse} type.
      */
     @GET("/v1/eta")
-    Observable<DriverEtaResponse> getDriverETA(@Query("lat") double lat, @Query("lng") double lng);
+    Observable<EtaEstimateResponse> getEtas(@Query("lat") double lat, @Query("lng") double lng);
 
     /***
      * Returns the estimated time in seconds it will take for the nearest driver to reach the
@@ -82,10 +83,10 @@ public interface LyftUserApiRx
      *                          being requested for.
      * @param destination_lat   Destination location latitude
      * @param destination_lng   Destination location longitude
-     * @return Retrofit Call of {@link DriverEtaResponse} type.
+     * @return Retrofit Call of {@link EtaEstimateResponse} type.
      */
     @GET("/v1/eta")
-    Observable<DriverEtaResponse> getDriverETA(@Query("lat") double lat, @Query("lng") double lng,
+    Observable<EtaEstimateResponse> getEtas(@Query("lat") double lat, @Query("lng") double lng,
                                          @Query("ride_type") String ride_type, @Query
                                                  ("destination_lat") double destination_lat,
                                          @Query("destination_lng") String destination_lng);
@@ -96,10 +97,10 @@ public interface LyftUserApiRx
      * @param lat       Pick up location latitude
      * @param lng       Pick up location longitude
      * @param ride_type The id of the desired ride type that driver eta is being requested for.
-     * @return Retrofit Call of {@link DriverEtaResponse} type.
+     * @return Retrofit Call of {@link EtaEstimateResponse} type.
      */
     @GET("/v1/eta")
-    Observable<DriverEtaResponse> getDriverETA(@Query("lat") double lat, @Query("lng") double lng, @Query("ride_type") String ride_type);
+    Observable<EtaEstimateResponse> getEtas(@Query("lat") double lat, @Query("lng") double lng, @Query("ride_type") String ride_type);
 
     /***
      * Returns a list of current and past rides for a given, authenticated passenger. If there's
