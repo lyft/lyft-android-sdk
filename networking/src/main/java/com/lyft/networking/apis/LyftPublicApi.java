@@ -65,7 +65,7 @@ public interface LyftPublicApi {
      * specified location
      * @param lat               Pick up location latitude
      * @param lng               Pick up location longitude
-     * @param ride_type         The id of the desired ride type that driver eta is
+     * @param rideType          The id of the desired ride type that driver eta is
      *                          being requested for.
      * @param destination_lat   Destination location latitude
      * @param destination_lng   Destination location longitude
