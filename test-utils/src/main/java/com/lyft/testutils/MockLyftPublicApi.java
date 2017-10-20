@@ -14,11 +14,15 @@ import retrofit2.Call;
 import retrofit2.http.Query;
 import retrofit2.mock.BehaviorDelegate;
 
-public class MockLyftPublicApi implements LyftPublicApi {
+public class MockLyftPublicApi implements LyftPublicApi
+{
 
     private static final String LYFT_LINE = "lyft_line";
     private static final String LYFT = "lyft";
     private static final String LYFT_PLUS = "lyft_plus";
+    private static final String LYFT_PREMIER = "lyft_premier";
+    private static final String LYFT_LUX = "lyft_lux";
+    private static final String LYFT_LUX_SUV = "lyft_luxsuv";
 
     private final BehaviorDelegate<LyftPublicApi> delegate;
     private CostEstimateResponse costEstimateResponse;
@@ -32,13 +36,16 @@ public class MockLyftPublicApi implements LyftPublicApi {
 
     @Override
     public Call<CostEstimateResponse> getCosts(@Query("start_lat") Double startLat, @Query("start_lng") Double startLng,
-            @Query("ride_type") String rideType, @Query("end_lat") Double endLat, @Query("end_lng") Double endLng) {
+                                               @Query("ride_type") String rideType, @Query("end_lat") Double endLat, @Query("end_lng") Double endLng) {
         if (!useCustomCostResponse) {
             List<CostEstimate> costEstimates = new ArrayList<>();
             if (rideType == null) {
                 costEstimates.add(createCostEstimateForRideType(LYFT_LINE));
                 costEstimates.add(createCostEstimateForRideType(LYFT));
                 costEstimates.add(createCostEstimateForRideType(LYFT_PLUS));
+                costEstimates.add(createCostEstimateForRideType(LYFT_PREMIER));
+                costEstimates.add(createCostEstimateForRideType(LYFT_LUX));
+                costEstimates.add(createCostEstimateForRideType(LYFT_LUX_SUV));
             } else if (isValidRideType(rideType)) {
                 costEstimates.add(createCostEstimateForRideType(rideType));
             }
@@ -55,6 +62,12 @@ public class MockLyftPublicApi implements LyftPublicApi {
     }
 
     @Override
+    public Call<EtaEstimateResponse> getEtas(@Query("lat") double lat, @Query("lng") double lng)
+    {
+        return getEtas(lat,lng, null);
+    }
+
+    @Override
     public Call<EtaEstimateResponse> getEtas(@Query("lat") Double lat, @Query("lng") Double lng, @Query("ride_type") String rideType) {
         if (!useCustomEtaResponse) {
             List<Eta> etas = new ArrayList<>();
@@ -62,6 +75,9 @@ public class MockLyftPublicApi implements LyftPublicApi {
                 etas.add(new Eta(LYFT_LINE, getDisplayNameForRideType(LYFT_LINE), 180));
                 etas.add(new Eta(LYFT, getDisplayNameForRideType(LYFT), 60));
                 etas.add(new Eta(LYFT_PLUS, getDisplayNameForRideType(LYFT_PLUS), 300));
+                etas.add(new Eta(LYFT_PREMIER, getDisplayNameForRideType(LYFT_PREMIER), 90));
+                etas.add(new Eta(LYFT_LUX, getDisplayNameForRideType(LYFT_LUX), 30));
+                etas.add(new Eta(LYFT_LUX_SUV, getDisplayNameForRideType(LYFT_LUX_SUV), 180));
             } else if (isValidRideType(rideType)) {
                 etas.add(new Eta(rideType, getDisplayNameForRideType(rideType), 60));
             }
@@ -73,13 +89,42 @@ public class MockLyftPublicApi implements LyftPublicApi {
     }
 
     @Override
+    public Call<EtaEstimateResponse> getEtas(@Query("lat") double lat, @Query("lng") double lng, @Query("ride_type") String rideType, @Query("destination_lat") Double destination_lat, @Query("destination_lng") Double destination_lng)
+    {
+        if (!useCustomEtaResponse)
+        {
+            List<Eta> etas = new ArrayList<>();
+            if (rideType == null)
+            {
+                etas.add(new Eta(LYFT_LINE, getDisplayNameForRideType(LYFT_LINE), 180));
+                etas.add(new Eta(LYFT, getDisplayNameForRideType(LYFT), 60));
+                etas.add(new Eta(LYFT_PLUS, getDisplayNameForRideType(LYFT_PLUS), 300));
+                etas.add(new Eta(LYFT_PREMIER, getDisplayNameForRideType(LYFT_PREMIER), 90));
+                etas.add(new Eta(LYFT_LUX, getDisplayNameForRideType(LYFT_LUX), 30));
+                etas.add(new Eta(LYFT_LUX_SUV, getDisplayNameForRideType(LYFT_LUX_SUV), 180));
+            }
+            else if (isValidRideType(rideType))
+            {
+                etas.add(new Eta(rideType, getDisplayNameForRideType(rideType), 60));
+            }
+
+            etaEstimateResponse = new EtaEstimateResponse(etas);
+        }
+
+        return delegate.returningResponse(etaEstimateResponse).getEtas(lat, lng, rideType);
+    }
+
+    @Override
     public Call<RideTypesResponse> getRidetypes(@Query("lat") Double lat, @Query("lng") Double lng,
-            @Query("ride_type") String rideType) {
+                                                @Query("ride_type") String rideType) {
         List<RideType> rideTypes = new ArrayList<>();
         if (rideType == null) {
             rideTypes.add(new RideType(LYFT_LINE, getDisplayNameForRideType(LYFT_LINE), 4, null, null, null));
             rideTypes.add(new RideType(LYFT, getDisplayNameForRideType(LYFT), 4, null, null, null));
             rideTypes.add(new RideType(LYFT_PLUS, getDisplayNameForRideType(LYFT_PLUS), 6, null, null, null));
+            rideTypes.add(new RideType(LYFT_PREMIER, getDisplayNameForRideType(LYFT_PREMIER), 4, null, null, null));
+            rideTypes.add(new RideType(LYFT_LUX, getDisplayNameForRideType(LYFT_LUX), 4, null, null, null));
+            rideTypes.add(new RideType(LYFT_LUX_SUV, getDisplayNameForRideType(LYFT_LUX_SUV), 6, null, null, null));
         } else {
             rideTypes.add(new RideType(rideType, getDisplayNameForRideType(rideType), 6, null, null, null));
         }
@@ -98,13 +143,16 @@ public class MockLyftPublicApi implements LyftPublicApi {
     }
 
     private static CostEstimate createCostEstimateForRideType(String rideType) {
-        return new CostEstimate(rideType, getDisplayNameForRideType(rideType), "USD", null, null, null, null, null, null);
+        return new CostEstimate(rideType, getDisplayNameForRideType(rideType), "USD", null, null, null, null, null, null, null);
     }
 
     private static boolean isValidRideType(String rideType) {
         return LYFT_LINE.equals(rideType)
                 || LYFT.equals(rideType)
-                || LYFT_PLUS.equals(rideType);
+                || LYFT_PLUS.equals(rideType)
+                || LYFT_PREMIER.equals(rideType)
+                || LYFT_LUX.equals(rideType)
+                || LYFT_LUX_SUV.equals(rideType);
     }
 
     private static String getDisplayNameForRideType(String rideType) {
@@ -114,6 +162,18 @@ public class MockLyftPublicApi implements LyftPublicApi {
 
         if (LYFT_PLUS.equals(rideType)) {
             return "Lyft Plus";
+        }
+
+        if(LYFT_PREMIER.equals(rideType)) {
+            return "Lyft Premier";
+        }
+
+        if(LYFT_LUX.equals(rideType)) {
+            return "Lyft Lux";
+        }
+
+        if(LYFT_LUX_SUV.equals(rideType)) {
+            return "Lyft Lux SUV";
         }
 
         return "Lyft";

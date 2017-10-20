@@ -4,7 +4,7 @@ public class ApiConfig {
 
     private final String clientId;
     private final String clientToken;
-
+    private String userAccessToken;
     private ApiConfig(String clientId, String clientToken) {
         this.clientId = clientId;
         this.clientToken = clientToken;
@@ -23,6 +23,17 @@ public class ApiConfig {
     public String getClientToken() {
         return clientToken;
     }
+
+    /**
+     * @return Returns the user access token that was acquired through an oAuth authorize workflow
+     */
+    public String getUserAccessToken() { return userAccessToken; }
+
+    /**
+     * Sets the user access token that was acquired through an oAuth authorize workflow
+     * @param userAccessToken The user's access token
+     */
+    public void setUserAccessToken(String userAccessToken) { this.userAccessToken = userAccessToken; }
 
     public static class Builder {
 
