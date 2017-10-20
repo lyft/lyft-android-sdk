@@ -72,7 +72,7 @@ public interface LyftPublicApi {
      * @return Retrofit Call of {@link EtaEstimateResponse} type.
      */
     @GET("/v1/eta")
-    Call<EtaEstimateResponse> getEtas(@Query("lat") double lat, @Query("lng") double lng, @Query("ride_type") String ride_type, @Query("destination_lat") Double destination_lat, @Query("destination_lng") Double destination_lng);
+    Call<EtaEstimateResponse> getEtas(@Query("lat") double lat, @Query("lng") double lng, @Query("ride_type") String rideType, @Query("destination_lat") Double destination_lat, @Query("destination_lng") Double destination_lng);
 
     /**
     * Types of rides

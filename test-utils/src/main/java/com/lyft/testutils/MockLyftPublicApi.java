@@ -14,7 +14,8 @@ import retrofit2.Call;
 import retrofit2.http.Query;
 import retrofit2.mock.BehaviorDelegate;
 
-public class MockLyftPublicApi implements LyftPublicApi {
+public class MockLyftPublicApi implements LyftPublicApi
+{
 
     private static final String LYFT_LINE = "lyft_line";
     private static final String LYFT = "lyft";
@@ -61,6 +62,12 @@ public class MockLyftPublicApi implements LyftPublicApi {
     }
 
     @Override
+    public Call<EtaEstimateResponse> getEtas(@Query("lat") double lat, @Query("lng") double lng)
+    {
+        return getEtas(lat,lng, null);
+    }
+
+    @Override
     public Call<EtaEstimateResponse> getEtas(@Query("lat") Double lat, @Query("lng") Double lng, @Query("ride_type") String rideType) {
         if (!useCustomEtaResponse) {
             List<Eta> etas = new ArrayList<>();
@@ -68,7 +75,36 @@ public class MockLyftPublicApi implements LyftPublicApi {
                 etas.add(new Eta(LYFT_LINE, getDisplayNameForRideType(LYFT_LINE), 180));
                 etas.add(new Eta(LYFT, getDisplayNameForRideType(LYFT), 60));
                 etas.add(new Eta(LYFT_PLUS, getDisplayNameForRideType(LYFT_PLUS), 300));
+                etas.add(new Eta(LYFT_PREMIER, getDisplayNameForRideType(LYFT_PREMIER), 90));
+                etas.add(new Eta(LYFT_LUX, getDisplayNameForRideType(LYFT_LUX), 30));
+                etas.add(new Eta(LYFT_LUX_SUV, getDisplayNameForRideType(LYFT_LUX_SUV), 180));
             } else if (isValidRideType(rideType)) {
+                etas.add(new Eta(rideType, getDisplayNameForRideType(rideType), 60));
+            }
+
+            etaEstimateResponse = new EtaEstimateResponse(etas);
+        }
+
+        return delegate.returningResponse(etaEstimateResponse).getEtas(lat, lng, rideType);
+    }
+
+    @Override
+    public Call<EtaEstimateResponse> getEtas(@Query("lat") double lat, @Query("lng") double lng, @Query("ride_type") String rideType, @Query("destination_lat") Double destination_lat, @Query("destination_lng") Double destination_lng)
+    {
+        if (!useCustomEtaResponse)
+        {
+            List<Eta> etas = new ArrayList<>();
+            if (rideType == null)
+            {
+                etas.add(new Eta(LYFT_LINE, getDisplayNameForRideType(LYFT_LINE), 180));
+                etas.add(new Eta(LYFT, getDisplayNameForRideType(LYFT), 60));
+                etas.add(new Eta(LYFT_PLUS, getDisplayNameForRideType(LYFT_PLUS), 300));
+                etas.add(new Eta(LYFT_PREMIER, getDisplayNameForRideType(LYFT_PREMIER), 90));
+                etas.add(new Eta(LYFT_LUX, getDisplayNameForRideType(LYFT_LUX), 30));
+                etas.add(new Eta(LYFT_LUX_SUV, getDisplayNameForRideType(LYFT_LUX_SUV), 180));
+            }
+            else if (isValidRideType(rideType))
+            {
                 etas.add(new Eta(rideType, getDisplayNameForRideType(rideType), 60));
             }
 
