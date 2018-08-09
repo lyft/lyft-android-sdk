@@ -20,11 +20,14 @@ android {
 }
 
 dependencies {
-    compile project(path: ':networking')
-    compile project(path: ':lyft-button')
+    implementation project(path: ':networking')
+    implementation project(path: ':lyft-button')
 
-    compile 'com.android.support:appcompat-v7:' + androidSupportLibrariesVersion
-    compile 'com.google.android.gms:play-services-location:' + googlePlayVersion
+    implementation 'com.squareup.okhttp3:okhttp:' + okhttpVersion
+    implementation 'com.squareup.retrofit2:retrofit:' + retrofitVersion
 
-    testCompile 'junit:junit:' + junitVersion
+    implementation 'com.android.support:appcompat-v7:' + androidSupportLibrariesVersion
+    implementation 'com.google.android.gms:play-services-location:' + googlePlayVersion
+
+    testImplementation 'junit:junit:' + junitVersion
 }

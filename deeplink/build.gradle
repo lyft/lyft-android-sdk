@@ -19,8 +19,8 @@ android {
 }
 
 dependencies {
-    compile 'org.jetbrains:annotations-java5:' + jetbrainsVersion
-    testCompile 'junit:junit:' + junitVersion
+    implementation 'org.jetbrains:annotations-java5:' + jetbrainsVersion
+    testImplementation 'junit:junit:' + junitVersion
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

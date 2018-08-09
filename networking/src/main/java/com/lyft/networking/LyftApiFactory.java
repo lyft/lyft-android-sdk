@@ -7,7 +7,7 @@ import com.lyft.networking.apis.LyftUserApiRx;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LyftApiFactory {
@@ -30,12 +30,12 @@ public class LyftApiFactory {
 
     /**
      * @return An implementation of Lyft's Public API endpoints that do not require a user.
-     * The return type of API calls will be {@link rx.Observable}.
+     * The return type of API calls will be {@link io.reactivex}.
      * See: <a href="http://petstore.swagger.io/?url=https://api.lyft.com/v1/spec#!/Public/">http://petstore.swagger.io/?url=https://api.lyft.com/v1/spec#!/Public/</a>
      */
     public LyftPublicApiRx getLyftPublicApiRx() {
         Retrofit retrofitPublicApi = getRetrofitBuilder(getPublicOkHttpClient())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofitPublicApi.create(LyftPublicApiRx.class);
     }
@@ -45,19 +45,18 @@ public class LyftApiFactory {
      * The return type of API calls will be {@link retrofit2.Call}. Used by the LyftButton.
      */
 
-    public LyftUserApi getLyftUserApi()
-    {
+    public LyftUserApi getLyftUserApi() {
         Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient()).build();
         return retrofitUserApi.create(LyftUserApi.class);
     }
 
     /**
      * @return An implementation of Lyft's User API endpoints that REQUIRE a user access token.
-     * The return type of API calls will be {@link rx.Observable}. Used by the LyftButton.
+     * The return type of API calls will be {@link io.reactivex.Observable}. Used by the LyftButton.
      */
     public LyftUserApiRx getLyftUserApiRx() {
         Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofitUserApi.create(LyftUserApiRx.class);
     }
@@ -69,15 +68,13 @@ public class LyftApiFactory {
                 .addConverterFactory(GsonConverterFactory.create());
     }
 
-    private OkHttpClient getPublicOkHttpClient()
-    {
+    private OkHttpClient getPublicOkHttpClient() {
         return new OkHttpClient.Builder()
                 .addInterceptor(new RequestInterceptor(apiConfig.getClientToken()))
                 .build();
     }
 
-    private OkHttpClient getUserOkHttpClient()
-    {
+    private OkHttpClient getUserOkHttpClient() {
         return new OkHttpClient.Builder()
                 .addInterceptor(new RequestInterceptor(apiConfig.getUserAccessToken()))
                 .build();

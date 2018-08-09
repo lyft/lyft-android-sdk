@@ -4,9 +4,10 @@ import com.lyft.networking.apiObjects.CostEstimateResponse;
 import com.lyft.networking.apiObjects.EtaEstimateResponse;
 import com.lyft.networking.apiObjects.NearbyDriversResponse;
 import com.lyft.networking.apiObjects.RideTypesResponse;
+
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 public interface LyftPublicApiRx {
 
@@ -24,7 +25,7 @@ public interface LyftPublicApiRx {
 
     @GET("/v1/cost")
     Observable<CostEstimateResponse> getCosts(@Query("start_lat") Double startLat, @Query("start_lng") Double startLng,
-            @Query("ride_type") String rideType, @Query("end_lat") Double endLat, @Query("end_lng") Double endLng);
+                                              @Query("ride_type") String rideType, @Query("end_lat") Double endLat, @Query("end_lng") Double endLng);
 
     /**
      * Available drivers nearby
