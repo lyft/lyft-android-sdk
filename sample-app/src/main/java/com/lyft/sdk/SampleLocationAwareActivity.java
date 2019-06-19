@@ -152,7 +152,7 @@ public class SampleLocationAwareActivity extends Activity {
                     for (RideType rideType : rideTypes) {
                         adapter.add(rideType.display_name);
                     }
-                    rideTypeSpinner.setSelection(adapter.getPosition(RideTypeEnum.CLASSIC.getDisplayName()));
+                    rideTypeSpinner.setSelection(adapter.getPosition(RideTypeEnum.STANDARD.getDisplayName()));
                 } else {
                     adapter.add("LYFT N/A");
                 }
@@ -171,7 +171,7 @@ public class SampleLocationAwareActivity extends Activity {
     }
 
     private void refreshButton(String selectedRideType) {
-        RideTypeEnum rideTypeEnum = RideTypeEnum.CLASSIC;
+        RideTypeEnum rideTypeEnum = RideTypeEnum.STANDARD;
 
         for (RideTypeEnum rte : RideTypeEnum.values()) {
             if (rte.getDisplayName().equals(selectedRideType)) {

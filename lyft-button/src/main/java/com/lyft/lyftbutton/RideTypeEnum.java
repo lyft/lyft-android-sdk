@@ -1,9 +1,9 @@
 package com.lyft.lyftbutton;
 
 public enum RideTypeEnum {
-    LINE("lyft_line"),
-    CLASSIC("lyft"),
-    PLUS("lyft_plus"),
+    SHARED("lyft_line"),
+    STANDARD("lyft"),
+    XL("lyft_plus"),
     ALL(null);
 
     private final String name;
@@ -18,12 +18,12 @@ public enum RideTypeEnum {
     }
 
     public String getDisplayName() {
-        if (this == LINE) {
-            return "Lyft Line";
-        } else if (this == CLASSIC) {
+        if (this == SHARED) {
+            return "Lyft Shared";
+        } else if (this == STANDARD) {
             return "Lyft";
-        } else if (this == PLUS) {
-            return "Lyft Plus";
+        } else if (this == XL) {
+            return "Lyft XL";
         }
         return "";
     }

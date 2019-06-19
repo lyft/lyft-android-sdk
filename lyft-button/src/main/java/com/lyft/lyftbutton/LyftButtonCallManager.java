@@ -3,7 +3,6 @@ package com.lyft.lyftbutton;
 import android.content.Context;
 import com.lyft.deeplink.DeepLink;
 import com.lyft.deeplink.DeepLinkParams;
-import com.lyft.networking.ApiConfig;
 import com.lyft.networking.apiObjects.CostEstimate;
 import com.lyft.networking.apiObjects.CostEstimateResponse;
 import com.lyft.networking.apiObjects.Eta;
@@ -202,7 +201,7 @@ class LyftButtonCallManager {
 
         if (etaEstimateResponse != null && etaEstimateResponse.eta_estimates != null) {
             for (Eta eta : etaEstimateResponse.eta_estimates) {
-                if (RideTypeEnum.CLASSIC.toString().equals(eta.ride_type)) {
+                if (RideTypeEnum.STANDARD.toString().equals(eta.ride_type)) {
                     desiredEta = eta;
                 }
 
@@ -221,7 +220,7 @@ class LyftButtonCallManager {
 
         if (costEstimateResponse != null && costEstimateResponse.cost_estimates != null) {
             for (CostEstimate costEstimate : costEstimateResponse.cost_estimates) {
-                if (RideTypeEnum.CLASSIC.toString().equals(costEstimate.ride_type)) {
+                if (RideTypeEnum.STANDARD.toString().equals(costEstimate.ride_type)) {
                     desiredCostEstimate = costEstimate;
                 }
 

@@ -86,7 +86,7 @@ public class RideParams {
 
     public static class Builder {
 
-        private RideTypeEnum rideTypeEnum = RideTypeEnum.CLASSIC;
+        private RideTypeEnum rideTypeEnum = RideTypeEnum.STANDARD;
         private String pickupAddr;
         private Double pickupLat;
         private Double pickupLng;

@@ -26,7 +26,7 @@ public class SampleBasicActivity extends Activity {
         RideParams.Builder rideParamsBuilder = new RideParams.Builder()
                 .setPickupLocation(37.7766048, -122.3943629)
                 .setDropoffLocation(37.759234, -122.4135125);
-        rideParamsBuilder.setRideTypeEnum(RideTypeEnum.CLASSIC);
+        rideParamsBuilder.setRideTypeEnum(RideTypeEnum.STANDARD);
 
         lyftButton.setRideParams(rideParamsBuilder.build());
         lyftButton.load();

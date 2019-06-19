@@ -125,7 +125,7 @@ public class LyftButtonCallManagerTest {
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         verify(callback).onSuccess(etaArgumentCaptor.capture());
-        assertEquals(RideTypeEnum.CLASSIC.toString(), etaArgumentCaptor.getValue().ride_type);
+        assertEquals(RideTypeEnum.STANDARD.toString(), etaArgumentCaptor.getValue().ride_type);
     }
 
     @Test
@@ -141,7 +141,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_loadEtaAndCostForLyftLine() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.LINE)
+                .setRideTypeEnum(RideTypeEnum.SHARED)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -152,7 +152,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_loadEtaAndCostForLyftPlus() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -228,13 +228,13 @@ public class LyftButtonCallManagerTest {
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         verify(callback).onSuccess(etaArgumentCaptor.capture());
-        assertEquals(RideTypeEnum.CLASSIC.toString(), etaArgumentCaptor.getValue().ride_type);
+        assertEquals(RideTypeEnum.STANDARD.toString(), etaArgumentCaptor.getValue().ride_type);
     }
 
     @Test
     public void loadTest_etaFailureNullResponse() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -254,7 +254,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_etaFailureNullList() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -273,7 +273,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_etaFailureEmptyList() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -293,14 +293,14 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_etaFailureNullEtaSeconds() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
         callManager.setRideParams(rideParams);
 
         List<Eta> etas = new ArrayList<>();
-        Eta eta = new Eta(RideTypeEnum.PLUS.toString(), RideTypeEnum.PLUS.getDisplayName(), null);
+        Eta eta = new Eta(RideTypeEnum.XL.toString(), RideTypeEnum.XL.getDisplayName(), null);
         etas.add(eta);
         lyftPublicApi.setCustomEtaEstimateResponse(new EtaEstimateResponse(etas));
 
@@ -316,7 +316,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_costFailureNullResponse() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -336,7 +336,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_costFailureNullList() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -356,7 +356,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_costFailureEmptyList() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
