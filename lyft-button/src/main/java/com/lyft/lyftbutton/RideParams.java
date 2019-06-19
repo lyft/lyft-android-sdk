@@ -1,5 +1,6 @@
 package com.lyft.lyftbutton;
 
+import com.lyft.deeplink.RideTypeEnum;
 import org.jetbrains.annotations.Nullable;
 
 public class RideParams {

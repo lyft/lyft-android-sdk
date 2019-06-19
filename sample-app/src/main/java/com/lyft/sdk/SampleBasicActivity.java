@@ -2,9 +2,9 @@ package com.lyft.sdk;
 
 import android.app.Activity;
 import android.os.Bundle;
+import com.lyft.deeplink.RideTypeEnum;
 import com.lyft.lyftbutton.LyftButton;
 import com.lyft.lyftbutton.RideParams;
-import com.lyft.lyftbutton.RideTypeEnum;
 import com.lyft.networking.ApiConfig;
 
 public class SampleBasicActivity extends Activity {

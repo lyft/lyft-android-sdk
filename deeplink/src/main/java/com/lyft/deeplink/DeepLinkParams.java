@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 public class DeepLinkParams {
 
     private final String clientId;
-    private final RideType rideType;
+    private final RideTypeEnum rideTypeEnum;
     private final String promoCode;
     private final String pickupAddr;
     private final Double pickupLat;
@@ -15,7 +15,7 @@ public class DeepLinkParams {
     private final Double dropoffLng;
 
     private DeepLinkParams(String clientId,
-                           RideType rideType,
+                           RideTypeEnum rideTypeEnum,
                            String promoCode,
                            String pickupAddr,
                            Double pickupLat,
@@ -24,7 +24,7 @@ public class DeepLinkParams {
                            Double dropoffLat,
                            Double dropoffLng) {
         this.clientId = clientId;
-        this.rideType = rideType;
+        this.rideTypeEnum = rideTypeEnum;
         this.promoCode = promoCode;
         this.pickupAddr = pickupAddr;
         this.pickupLat = pickupLat;
@@ -40,8 +40,8 @@ public class DeepLinkParams {
     }
 
     @Nullable
-    public RideType getRideType() {
-        return rideType;
+    public RideTypeEnum getRideTypeEnum() {
+        return rideTypeEnum;
     }
 
     @Nullable
@@ -98,7 +98,7 @@ public class DeepLinkParams {
     public static class Builder {
 
         private String clientId;
-        private RideType rideType = RideType.STANDARD;
+        private RideTypeEnum rideTypeEnum = RideTypeEnum.STANDARD;
         private String promoCode;
         private String pickupAddr;
         private Double pickupLat;
@@ -108,7 +108,7 @@ public class DeepLinkParams {
         private Double dropoffLng;
 
         public DeepLinkParams build() {
-            return new DeepLinkParams(clientId, rideType, promoCode, pickupAddr, pickupLat, pickupLng, dropoffAddr, dropoffLat, dropoffLng);
+            return new DeepLinkParams(clientId, rideTypeEnum, promoCode, pickupAddr, pickupLat, pickupLng, dropoffAddr, dropoffLat, dropoffLng);
         }
 
         public Builder setClientId(String clientId) {
@@ -116,8 +116,8 @@ public class DeepLinkParams {
             return this;
         }
 
-        public Builder setRideType(RideType rideType) {
-            this.rideType = rideType;
+        public Builder setRideTypeEnum(RideTypeEnum rideTypeEnum) {
+            this.rideTypeEnum = rideTypeEnum;
             return this;
         }
 

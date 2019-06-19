@@ -16,9 +16,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.lyft.deeplink.RideTypeEnum;
 import com.lyft.lyftbutton.LyftButton;
 import com.lyft.lyftbutton.RideParams;
-import com.lyft.lyftbutton.RideTypeEnum;
 import com.lyft.networking.ApiConfig;
 import com.lyft.networking.LyftApiFactory;
 import com.lyft.networking.apiObjects.RideType;
@@ -139,7 +139,7 @@ public class SampleLocationAwareActivity extends Activity {
     }
 
     private void getRideTypesAtCurrentLocation() {
-        Call<RideTypesResponse> call = lyftPublicApi.getRidetypes(currentLat, currentLng, RideTypeEnum.ALL.toString());
+        Call<RideTypesResponse> call = lyftPublicApi.getRidetypes(currentLat, currentLng, null);
         callSet.add(call);
         call.enqueue(new Callback<RideTypesResponse>() {
             @Override

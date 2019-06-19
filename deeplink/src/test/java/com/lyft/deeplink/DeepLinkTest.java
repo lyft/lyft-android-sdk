@@ -20,7 +20,7 @@ public class DeepLinkTest {
     public void createDeepLinkStringTest_full() {
         DeepLinkParams deepLinkParams = new DeepLinkParams.Builder()
                 .setClientId(CLIENT_ID)
-                .setRideType(RIDETYPE)
+                .setRideTypeEnum(RIDETYPE)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .setPickupAddress(PICKUP_ADDR)
@@ -39,7 +39,7 @@ public class DeepLinkTest {
     @Test
     public void createDeepLinkStringTest_noClientId() {
         DeepLinkParams deepLinkParams = new DeepLinkParams.Builder()
-                .setRideType(RIDETYPE)
+                .setRideTypeEnum(RIDETYPE)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -53,7 +53,7 @@ public class DeepLinkTest {
     @Test
     public void createDeepLinkStringTest_noPickupLocation() {
         DeepLinkParams deepLinkParams = new DeepLinkParams.Builder()
-                .setRideType(RIDETYPE)
+                .setRideTypeEnum(RIDETYPE)
                 .setPickupLocation(PICKUP_LAT, null)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -67,7 +67,7 @@ public class DeepLinkTest {
     public void createDeepLinkStringTest_addressOnly() {
         DeepLinkParams deepLinkParams = new DeepLinkParams.Builder()
                 .setClientId(CLIENT_ID)
-                .setRideType(RIDETYPE)
+                .setRideTypeEnum(RIDETYPE)
                 .setPickupAddress(PICKUP_ADDR)
                 .setDropoffAddress(DROPOFF_ADDR)
                 .build();

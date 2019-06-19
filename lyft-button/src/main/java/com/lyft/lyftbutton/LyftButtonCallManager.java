@@ -3,6 +3,7 @@ package com.lyft.lyftbutton;
 import android.content.Context;
 import com.lyft.deeplink.DeepLink;
 import com.lyft.deeplink.DeepLinkParams;
+import com.lyft.deeplink.RideTypeEnum;
 import com.lyft.networking.apiObjects.CostEstimate;
 import com.lyft.networking.apiObjects.CostEstimateResponse;
 import com.lyft.networking.apiObjects.Eta;
@@ -66,7 +67,7 @@ class LyftButtonCallManager {
     void launchLyftApp(Context context) {
         DeepLinkParams deepLinkParams = new DeepLinkParams.Builder()
                 .setClientId(clientId)
-                .setRideType(rideParams.getRideTypeEnum().toString())
+                .setRideTypeEnum(rideParams.getRideTypeEnum())
                 .setPickupLocation(rideParams.getPickupLat(), rideParams.getPickupLng())
                 .setDropoffLocation(rideParams.getDropoffLat(), rideParams.getDropoffLng())
                 .setPromoCode(rideParams.getPromoCode())
@@ -146,7 +147,7 @@ class LyftButtonCallManager {
 
     private void loadEta(final LyftButton.ResultLoadedCallback callback) {
         final Call<EtaEstimateResponse> etaCall =
-                publicApi.getEtas(rideParams.getPickupLat(), rideParams.getPickupLng(), RideTypeEnum.ALL.toString());
+                publicApi.getEtas(rideParams.getPickupLat(), rideParams.getPickupLng());
         callSet.add(etaCall);
         etaCall.enqueue(new Callback<EtaEstimateResponse>() {
             @Override
@@ -171,7 +172,7 @@ class LyftButtonCallManager {
 
     private void loadCost(final LyftButton.ResultLoadedCallback callback) {
         final Call<CostEstimateResponse> costCall =
-                publicApi.getCosts(rideParams.getPickupLat(), rideParams.getPickupLng(), RideTypeEnum.ALL.toString(),
+                publicApi.getCosts(rideParams.getPickupLat(), rideParams.getPickupLng(), null,
                         rideParams.getDropoffLat(),
                         rideParams.getDropoffLng());
         callSet.add(costCall);
@@ -201,7 +202,7 @@ class LyftButtonCallManager {
 
         if (etaEstimateResponse != null && etaEstimateResponse.eta_estimates != null) {
             for (Eta eta : etaEstimateResponse.eta_estimates) {
-                if (RideTypeEnum.STANDARD.toString().equals(eta.ride_type)) {
+                if (RideTypeEnum.STANDARD.getRideTypeKey().equals(eta.ride_type)) {
                     desiredEta = eta;
                 }
 
@@ -220,7 +221,7 @@ class LyftButtonCallManager {
 
         if (costEstimateResponse != null && costEstimateResponse.cost_estimates != null) {
             for (CostEstimate costEstimate : costEstimateResponse.cost_estimates) {
-                if (RideTypeEnum.STANDARD.toString().equals(costEstimate.ride_type)) {
+                if (RideTypeEnum.STANDARD.getRideTypeKey().equals(costEstimate.ride_type)) {
                     desiredCostEstimate = costEstimate;
                 }
 
