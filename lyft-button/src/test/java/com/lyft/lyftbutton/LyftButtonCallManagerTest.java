@@ -1,5 +1,6 @@
 package com.lyft.lyftbutton;
 
+import com.lyft.deeplink.RideTypeEnum;
 import com.lyft.networking.apiObjects.CostEstimate;
 import com.lyft.networking.apiObjects.CostEstimateResponse;
 import com.lyft.networking.apiObjects.Eta;
@@ -125,7 +126,7 @@ public class LyftButtonCallManagerTest {
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         verify(callback).onSuccess(etaArgumentCaptor.capture());
-        assertEquals(RideTypeEnum.STANDARD.toString(), etaArgumentCaptor.getValue().ride_type);
+        assertEquals(RideTypeEnum.STANDARD.getRideTypeKey(), etaArgumentCaptor.getValue().ride_type);
     }
 
     @Test
@@ -202,10 +203,10 @@ public class LyftButtonCallManagerTest {
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         verify(callback).onSuccess(etaArgumentCaptor.capture());
-        assertEquals(rideParams.getRideTypeEnum().toString(), etaArgumentCaptor.getValue().ride_type);
+        assertEquals(rideParams.getRideTypeEnum().getRideTypeKey(), etaArgumentCaptor.getValue().ride_type);
 
         verify(callback).onSuccess(costEstimateArgumentCaptor.capture());
-        assertEquals(rideParams.getRideTypeEnum().toString(), costEstimateArgumentCaptor.getValue().ride_type);
+        assertEquals(rideParams.getRideTypeEnum().getRideTypeKey(), costEstimateArgumentCaptor.getValue().ride_type);
     }
 
     @Test
@@ -228,7 +229,7 @@ public class LyftButtonCallManagerTest {
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         verify(callback).onSuccess(etaArgumentCaptor.capture());
-        assertEquals(RideTypeEnum.STANDARD.toString(), etaArgumentCaptor.getValue().ride_type);
+        assertEquals(RideTypeEnum.STANDARD.getRideTypeKey(), etaArgumentCaptor.getValue().ride_type);
     }
 
     @Test
@@ -300,7 +301,7 @@ public class LyftButtonCallManagerTest {
         callManager.setRideParams(rideParams);
 
         List<Eta> etas = new ArrayList<>();
-        Eta eta = new Eta(RideTypeEnum.XL.toString(), RideTypeEnum.XL.getDisplayName(), null);
+        Eta eta = new Eta(RideTypeEnum.XL.getRideTypeKey(), RideTypeEnum.XL.getDisplayName(), null);
         etas.add(eta);
         lyftPublicApi.setCustomEtaEstimateResponse(new EtaEstimateResponse(etas));
 

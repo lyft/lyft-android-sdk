@@ -152,7 +152,7 @@ class LyftButtonCallManager {
         etaCall.enqueue(new Callback<EtaEstimateResponse>() {
             @Override
             public void onResponse(Call<EtaEstimateResponse> call, Response<EtaEstimateResponse> response) {
-                Eta eta = getEtaForRideType(response.body(), rideParams.getRideTypeEnum().toString());
+                Eta eta = getEtaForRideType(response.body(), rideParams.getRideTypeEnum().getRideTypeKey());
 
                 if (eta != null && eta.eta_seconds != null) {
                     callback.onSuccess(eta);
@@ -179,7 +179,7 @@ class LyftButtonCallManager {
         costCall.enqueue(new Callback<CostEstimateResponse>() {
             @Override
             public void onResponse(Call<CostEstimateResponse> call, Response<CostEstimateResponse> response) {
-                CostEstimate costEstimate = getCostForRideType(response.body(), rideParams.getRideTypeEnum().toString());
+                CostEstimate costEstimate = getCostForRideType(response.body(), rideParams.getRideTypeEnum().getRideTypeKey());
                 if (costEstimate != null) {
                     callback.onSuccess(costEstimate);
                 } else {
