@@ -63,7 +63,7 @@ public class DeepLink {
     static String createDeepLinkString(DeepLinkParams deepLinkParams) {
         StringBuilder sb = new StringBuilder();
         sb.append("lyft://ridetype?id=");
-        sb.append(deepLinkParams.getRideType());
+        sb.append(deepLinkParams.getRideType().getRideTypeKey());
 
         if (deepLinkParams.isPickupLatLngSet()) {
             sb.append("&pickup[latitude]=");

@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 public class DeepLinkParams {
 
     private final String clientId;
-    private final String rideType;
+    private final RideType rideType;
     private final String promoCode;
     private final String pickupAddr;
     private final Double pickupLat;
@@ -14,8 +14,15 @@ public class DeepLinkParams {
     private final Double dropoffLat;
     private final Double dropoffLng;
 
-    private DeepLinkParams(String clientId, String rideType, String promoCode, String pickupAddr, Double pickupLat, Double pickupLng,
-            String dropoffAddr, Double dropoffLat, Double dropoffLng) {
+    private DeepLinkParams(String clientId,
+                           RideType rideType,
+                           String promoCode,
+                           String pickupAddr,
+                           Double pickupLat,
+                           Double pickupLng,
+                           String dropoffAddr,
+                           Double dropoffLat,
+                           Double dropoffLng) {
         this.clientId = clientId;
         this.rideType = rideType;
         this.promoCode = promoCode;
@@ -33,7 +40,7 @@ public class DeepLinkParams {
     }
 
     @Nullable
-    public String getRideType() {
+    public RideType getRideType() {
         return rideType;
     }
 
@@ -91,7 +98,7 @@ public class DeepLinkParams {
     public static class Builder {
 
         private String clientId;
-        private String rideType = "lyft";
+        private RideType rideType = RideType.STANDARD;
         private String promoCode;
         private String pickupAddr;
         private Double pickupLat;
@@ -109,7 +116,7 @@ public class DeepLinkParams {
             return this;
         }
 
-        public Builder setRideType(String rideType) {
+        public Builder setRideType(RideType rideType) {
             this.rideType = rideType;
             return this;
         }
