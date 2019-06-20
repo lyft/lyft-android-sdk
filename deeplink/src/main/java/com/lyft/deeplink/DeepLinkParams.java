@@ -39,7 +39,6 @@ public class DeepLinkParams {
         return clientId;
     }
 
-    @Nullable
     public RideTypeEnum getRideTypeEnum() {
         return rideTypeEnum;
     }
@@ -77,6 +76,10 @@ public class DeepLinkParams {
     @Nullable
     public Double getDropoffLng() {
         return dropoffLng;
+    }
+
+    public boolean isRideTypeSet() {
+        return rideTypeEnum != null;
     }
 
     public boolean isPickupLatLngSet() {
