@@ -1,9 +1,11 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.ICompleteData;
+
 import java.util.List;
 
-public class NearbyDriver {
+public class NearbyDriver implements ICompleteData {
 
     @SerializedName("locations")
     public final List<LatLng> locations;
@@ -20,5 +22,15 @@ public class NearbyDriver {
         sb.append("  locations: ").append(locations).append("\n");
         sb.append("}\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean isValid() {
+        for (LatLng location : locations) {
+            if (!location.isValid()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

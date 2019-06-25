@@ -1,9 +1,11 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.ICompleteData;
+
 import java.util.List;
 
-public class RideTypesResponse {
+public class RideTypesResponse implements ICompleteData {
 
     @SerializedName("ride_types")
     public final List<RideType> ride_types;
@@ -20,5 +22,16 @@ public class RideTypesResponse {
         sb.append("  ride_types: ").append(ride_types).append("\n");
         sb.append("}\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean isValid() {
+        for (RideType rideType : ride_types) {
+            if (!rideType.isValid()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

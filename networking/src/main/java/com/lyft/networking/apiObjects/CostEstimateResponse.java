@@ -1,9 +1,11 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.ICompleteData;
+
 import java.util.List;
 
-public class CostEstimateResponse {
+public class CostEstimateResponse implements ICompleteData {
 
     @SerializedName("cost_estimates")
     public final List<CostEstimate> cost_estimates;
@@ -20,5 +22,16 @@ public class CostEstimateResponse {
         sb.append("  cost_estimates: ").append(cost_estimates).append("\n");
         sb.append("}\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean isValid() {
+        for (CostEstimate costEstimate : cost_estimates) {
+            if (!costEstimate.isValid()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

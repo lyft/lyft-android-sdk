@@ -1,9 +1,11 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.ICompleteData;
+
 import java.util.List;
 
-public class EtaEstimateResponse {
+public class EtaEstimateResponse implements ICompleteData {
 
     @SerializedName("eta_estimates")
     public final List<Eta> eta_estimates;
@@ -20,5 +22,15 @@ public class EtaEstimateResponse {
         sb.append("  eta_estimates: ").append(eta_estimates).append("\n");
         sb.append("}\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean isValid() {
+        for (Eta etaEstimate : eta_estimates) {
+            if (!etaEstimate.isValid()) {
+                return false;
+            }
+        }
+        return true;
     }
 }
