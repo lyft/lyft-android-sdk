@@ -5,6 +5,7 @@ import com.lyft.networking.apis.LyftPublicApiRx;
 import com.lyft.networking.apis.LyftUserApi;
 import com.lyft.networking.apis.LyftUserApiRx;
 
+import com.lyft.networking.internal.NullCheckErrorConverter;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -66,6 +67,7 @@ public class LyftApiFactory {
         return new Retrofit.Builder()
                 .baseUrl(LyftPublicApi.API_ROOT)
                 .client(client)
+                .addConverterFactory(new NullCheckErrorConverter())
                 .addConverterFactory(GsonConverterFactory.create());
     }
 
