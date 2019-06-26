@@ -1,13 +1,14 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.ICompleteData;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A model for an instance of a user's RideHistory
  */
 
-public class RideHistory
-{
+public class RideHistory implements ICompleteData {
     /**
      * Ride id
      */
@@ -41,12 +42,14 @@ public class RideHistory
      * Indicates whether the ride was requested from the business profile or personal
      * profile of the passenger.
      */
+    @Nullable
     @SerializedName("ride_profile")
     public String ride_profile;
 
     /**
      * Amp color HEX code, eg. #FFFFFF.
      */
+    @Nullable
     @SerializedName("beacon_color")
     public String beacon_color;
 
@@ -54,6 +57,7 @@ public class RideHistory
      * Link to a web view showing the pricing structure for the geographic area where
      * the ride was taken.
      */
+    @Nullable
     @SerializedName("pricing_details_url")
     public String pricing_details_url;
 
@@ -62,23 +66,27 @@ public class RideHistory
      * This field will only be present for rides created via the API, or that have been
      * shared through the "Share my Route" feature.
      */
+    @Nullable
     @SerializedName("route_url")
     public String route_url;
 
     /**
      * The role of user who canceled the ride (if applicable).
      */
+    @Nullable
     @SerializedName("canceled_by")
     public String canceled_by;
 
     /**
      * The written feedback the user left for this ride.
      */
+    @Nullable
     @SerializedName("feedback")
     public String feedback;
     /**
      * The array of actors who may cancel the ride at this point (driver, passenger, dispatcher).
      */
+    @Nullable
     @SerializedName("can_cancel")
     public String[] can_cancel;
 
@@ -104,6 +112,7 @@ public class RideHistory
      * Current location of the vehicle. Available after ride status changes
      * to pickedUp and until droppedOff.
      */
+    @Nullable
     @SerializedName("location")
     public LyftLocation location;
 
@@ -159,4 +168,19 @@ public class RideHistory
     public boolean isPending() { return "pending".equalsIgnoreCase(status) || "unknown".equalsIgnoreCase(status); }
 
 
+    @Override
+    public boolean isValid() {
+        return ride_id != null
+                && ride_type != null
+                && status != null
+                && primetime_percentage != null
+                && requested_at != null
+                && pickup.isValid()
+                && destination.isValid()
+                && dropoff.isValid()
+                && origin.isValid()
+                && passenger.isValid()
+                && driver.isValid()
+                && vehicle.isValid();
+    }
 }

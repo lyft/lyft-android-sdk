@@ -1,13 +1,13 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.ICompleteData;
 
 /**
  * Response model for requests for Rides on the Lyft Platform
  */
 
-public class RideRequestResponse
-{
+public class RideRequestResponse implements ICompleteData {
     /**
      * Requested ride ID.
      */
@@ -44,4 +44,13 @@ public class RideRequestResponse
     @SerializedName("passenger")
     public LyftUser passenger;
 
+    @Override
+    public boolean isValid() {
+        return ride_id != null
+                && ride_type != null
+                && status != null
+                && origin.isValid()
+                && destination.isValid()
+                && passenger.isValid();
+    }
 }
