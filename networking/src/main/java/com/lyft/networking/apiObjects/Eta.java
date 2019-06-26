@@ -2,18 +2,22 @@ package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
 import com.lyft.networking.apiObjects.internal.Validatable;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Estimated Time of Arrival
  **/
 public class Eta implements Validatable {
 
+    @NotNull
     @SerializedName("ride_type")
     public final String ride_type;
 
+    @NotNull
     @SerializedName("display_name")
     public final String display_name;
 
+    @NotNull
     @SerializedName("eta_seconds")
     public final Integer eta_seconds;
 

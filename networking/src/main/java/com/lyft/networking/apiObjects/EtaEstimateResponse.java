@@ -2,11 +2,13 @@ package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
 import com.lyft.networking.apiObjects.internal.Validatable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class EtaEstimateResponse implements Validatable {
 
+    @NotNull
     @SerializedName("eta_estimates")
     public final List<Eta> eta_estimates;
 
