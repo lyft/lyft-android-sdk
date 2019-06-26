@@ -1,8 +1,9 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
-public class LatLng {
+public class LatLng implements Validatable {
 
     @SerializedName("lat")
     public final Double lat;
@@ -24,5 +25,10 @@ public class LatLng {
         sb.append("  lng: ").append(lng).append("\n");
         sb.append("}\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean isValid() {
+        return lat != null && lng != null;
     }
 }

@@ -1,8 +1,9 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
-public class PricingDetails {
+public class PricingDetails implements Validatable {
 
     @SerializedName("base_charge")
     public final Integer base_charge;
@@ -50,5 +51,16 @@ public class PricingDetails {
         sb.append("  trust_and_service: ").append(trust_and_service).append("\n");
         sb.append("}\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean isValid() {
+        return base_charge != null
+                && cancel_penalty_amount != null
+                && cost_minimum != null
+                && cost_per_mile != null
+                && cost_per_minute != null
+                && currency != null
+                && trust_and_service != null;
     }
 }

@@ -1,14 +1,14 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
 /**
  * Represents a user object model on the Lyft API.
  * This object model can be used to represent the base line
  * information for a driver or a passenger on the Lyft platform
  */
-public class LyftUser
-{
+public class LyftUser implements Validatable {
     /**
      * Rating of the user; current rating (0.0 – 5.0).
      */
@@ -35,4 +35,12 @@ public class LyftUser
     @SerializedName("image_url")
     public String image_url;
 
+    @Override
+    public boolean isValid() {
+        return rating != null
+                && user_id != null
+                && first_name != null
+                && last_name != null
+                && image_url != null;
+    }
 }

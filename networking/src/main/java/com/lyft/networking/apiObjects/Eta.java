@@ -1,11 +1,12 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
 /**
  * Estimated Time of Arrival
  **/
-public class Eta {
+public class Eta implements Validatable {
 
     @SerializedName("ride_type")
     public final String ride_type;
@@ -32,5 +33,13 @@ public class Eta {
         sb.append("  eta_seconds: ").append(eta_seconds).append("\n");
         sb.append("}\n");
         return sb.toString();
+    }
+
+
+    @Override
+    public boolean isValid() {
+        return ride_type != null
+                && display_name != null
+                && eta_seconds != null;
     }
 }

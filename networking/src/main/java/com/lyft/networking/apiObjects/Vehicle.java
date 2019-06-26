@@ -1,13 +1,13 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
 /**
  * Model containing vehicle meta data
  */
 
-public class Vehicle
-{
+public class Vehicle implements Validatable {
     /**
      * Vehicle year
      */
@@ -45,9 +45,17 @@ public class Vehicle
     public String color;
 
     /**
-     * Vehicle image_ur
+     * Vehicle image_url
      */
-    @SerializedName("image_ur")
+    @SerializedName("image_url")
     public String image_url;
 
+    @Override
+    public boolean isValid() {
+        return make != null
+                && model != null
+                && license_plate != null
+                && license_plate_state != null
+                && image_url != null;
+    }
 }

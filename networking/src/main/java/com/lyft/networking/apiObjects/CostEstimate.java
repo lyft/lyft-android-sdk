@@ -1,11 +1,13 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.Validatable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A non-guaranteed estimate of price
  **/
-public class CostEstimate {
+public class CostEstimate implements Validatable {
 
     /**
      * Ride type one of: (lyft, lyft_plus, lyft_line, lyft_premier, lyft_lux, lyft_luxsuv)
@@ -61,12 +63,17 @@ public class CostEstimate {
      * A token that should be used to confirm that the user has accepted current Prime Time
      * and/or fixed price charges. See note above.
      */
+    @Nullable
     @SerializedName("cost_token")
     public final String cost_token;
 
     /**
+     * @Deprecated use {@link #cost_token} instead.
+     *
      * A token that should be used to confirm that the user has accepted current Prime Time pricing.
      */
+    @Nullable
+    @Deprecated
     @SerializedName("primetime_confirmation_token")
     public final String primetime_confirmation_token;
 
@@ -102,5 +109,17 @@ public class CostEstimate {
         sb.append("  cost_token: ").append(cost_token).append("\n");
         sb.append("}\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean isValid() {
+        return ride_type != null
+                && display_name != null
+                && currency != null
+                && estimated_cost_cents_min != null
+                && estimated_cost_cents_max != null
+                && estimated_distance_miles != null
+                && estimated_duration_seconds != null
+                && primetime_percentage != null;
     }
 }

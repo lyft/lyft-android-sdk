@@ -1,9 +1,11 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.Validatable;
+
 import java.util.List;
 
-public class NearbyDriversByRideType {
+public class NearbyDriversByRideType implements Validatable {
 
     @SerializedName("ride_type")
     public final String ride_type;
@@ -25,5 +27,15 @@ public class NearbyDriversByRideType {
         sb.append("  drivers: ").append(drivers).append("\n");
         sb.append("}\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean isValid() {
+        for (NearbyDriver driver : drivers) {
+            if (!driver.isValid()) {
+                return false;
+            }
+        }
+        return ride_type != null;
     }
 }
