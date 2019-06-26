@@ -23,34 +23,28 @@ public class LyftApiFactory {
      * @return An implementation of Lyft's Public API endpoints that do not require a user.
      * The return type of API calls will be {@link retrofit2.Call}. Used by the LyftButton.
      *
-     * By default, the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
+     * The Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      * if the response returned by the server has missing information (i.e. non-null values returned as null).
      *
      * THE CALLER MUST be able to handle {@link com.lyft.networking.exceptions.PartialResponseException}.
      * Unhandled exceptions will cause a runtime crash.
      *
-     * To explicitly disallow this, invoke #getLyftPublicApi(boolean).
+     * To avoid an exception and manually handle null checking, use #getUnchekedLyftPublicApi().
      */
     public LyftPublicApi getLyftPublicApi() {
-        return getLyftPublicApi(true);
+        Retrofit retrofitPublicApi = getRetrofitBuilder(getPublicOkHttpClient(), true).build();
+        return retrofitPublicApi.create(LyftPublicApi.class);
     }
 
     /**
-     * Creates an implementation of Lyft's Public API, with an option of generating {@link com.lyft.networking.exceptions.PartialResponseException}
-     * should the server return incomplete response models.
-     *
-     * @param requiresCompleteResponse A boolean flag to indicate whether an exception should be thrown
-     *                                 if the server returns partial data. If set true,
-     *                                 the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
-     *                                 when the response returned by the server has missing information (i.e. non-null values returned as null).
-     *
-     *                                 ONLY SET AS FALSE if the consumer is responsible for manually handling null checks.
-     *
      * @return An implementation of Lyft's Public API endpoints that do not require a user.
      * The return type of API calls will be {@link retrofit2.Call}. Used by the LyftButton.
+     *
+     * The Retrofit client will not massage the response passed by the server. It is the responsibility of the caller
+     * to verify that the required contents of each payload is non-null before access.
      */
-    public LyftPublicApi getLyftPublicApi(boolean requiresCompleteResponse) {
-        Retrofit retrofitPublicApi = getRetrofitBuilder(getPublicOkHttpClient(), requiresCompleteResponse).build();
+    public LyftPublicApi getUnchekedLyftPublicApi() {
+        Retrofit retrofitPublicApi = getRetrofitBuilder(getPublicOkHttpClient(), false).build();
         return retrofitPublicApi.create(LyftPublicApi.class);
     }
 
@@ -58,31 +52,30 @@ public class LyftApiFactory {
      * @return An implementation of Lyft's Public API endpoints that do not require a user.
      * The return type of API calls will be {@link rx.Observable}.
      *
-     * By default, the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
+     * The Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      * if the response returned by the server has missing information (i.e. non-null values returned as null).
      *
      * THE CALLER MUST be able to handle {@link com.lyft.networking.exceptions.PartialResponseException}.
      * Unhandled exceptions will cause a runtime crash.
      *
-     * To explicitly disallow this, invoke #getLyftPublicApiRx(boolean).
+     * To avoid an exception and manually handle null checking, use #getUnchekedLyftPublicApiRx().
      */
     public LyftPublicApiRx getLyftPublicApiRx() {
-        return getLyftPublicApiRx(true);
+        Retrofit retrofitPublicApi = getRetrofitBuilder(getPublicOkHttpClient(), true)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        return retrofitPublicApi.create(LyftPublicApiRx.class);
     }
 
     /**
-     * @param requiresCompleteResponse A boolean flag to indicate whether an exception should be thrown
-     *                                 if the server returns partial data. If set true,
-     *                                 the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
-     *                                 when the response returned by the server has missing information (i.e. non-null values returned as null).
-     *
-     *                                 ONLY SET AS FALSE if the consumer is responsible for manually handling null checks.
-     *
      * @return An implementation of Lyft's Public API endpoints that do not require a user.
      * The return type of API calls will be {@link rx.Observable}.
+     *
+     * The Retrofit client will not massage the response passed by the server. It is the responsibility of the caller
+     * to verify that the required contents of each payload is non-null before access.
      */
-    public LyftPublicApiRx getLyftPublicApiRx(boolean requiresCompleteResponse) {
-        Retrofit retrofitPublicApi = getRetrofitBuilder(getPublicOkHttpClient(), requiresCompleteResponse)
+    public LyftPublicApiRx getUncheckedLyftPublicApiRx() {
+        Retrofit retrofitPublicApi = getRetrofitBuilder(getPublicOkHttpClient(), false)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         return retrofitPublicApi.create(LyftPublicApiRx.class);
@@ -92,31 +85,28 @@ public class LyftApiFactory {
      * @return An implementation of Lyft's User API endpoints that REQUIRE a user access token.
      * The return type of API calls will be {@link retrofit2.Call}. Used by the LyftButton.
      *
-     * By default, the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
+     * The Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      * if the response returned by the server has missing information (i.e. non-null values returned as null).
      *
      * THE CALLER MUST be able to handle {@link com.lyft.networking.exceptions.PartialResponseException}.
      * Unhandled exceptions will cause a runtime crash.
      *
-     * To explicitly disallow this, invoke #getLyftUserApi(boolean).
+     * To explicitly disallow this, invoke #getUncheckedLyftUserApi().
      */
     public LyftUserApi getLyftUserApi() {
-        return getLyftUserApi(true);
+        Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient(), true).build();
+        return retrofitUserApi.create(LyftUserApi.class);
     }
 
     /**
-     * @param requiresCompleteResponse A boolean flag to indicate whether an exception should be thrown
-     *                                 if the server returns partial data. If set true,
-     *                                 the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
-     *                                 when the response returned by the server has missing information (i.e. non-null values returned as null).
-     *
-     *                                 ONLY SET AS FALSE if the consumer is responsible for manually handling null checks.
-     *
      * @return An implementation of Lyft's User API endpoints that REQUIRE a user access token.
      * The return type of API calls will be {@link retrofit2.Call}. Used by the LyftButton.
+     *
+     * The Retrofit client will not massage the response passed by the server. It is the responsibility of the caller
+     * to verify that the required contents of each payload is non-null before access.
      */
-    public LyftUserApi getLyftUserApi(boolean requiresCompleteResponse) {
-        Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient(), requiresCompleteResponse).build();
+    public LyftUserApi getUncheckedLyftUserApi() {
+        Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient(), false).build();
         return retrofitUserApi.create(LyftUserApi.class);
     }
 
@@ -124,32 +114,31 @@ public class LyftApiFactory {
      * @return An implementation of Lyft's User API endpoints that REQUIRE a user access token.
      * The return type of API calls will be {@link rx.Observable}. Used by the LyftButton.
      *
-     * By default, the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
+     * The Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      * if the response returned by the server has missing information (i.e. non-null values returned as null).
      *
      * THE CALLER MUST be able to handle {@link com.lyft.networking.exceptions.PartialResponseException}.
      * Unhandled exceptions will cause a runtime crash.
      *
-     * To explicitly disallow this, invoke #getLyftUserApiRx(boolean).
+     * To explicitly disallow this, invoke #getLyftUncheckedUserApiRx().
      */
     public LyftUserApiRx getLyftUserApiRx() {
-        return getLyftUserApiRx(true);
+        Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient(), true)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        return retrofitUserApi.create(LyftUserApiRx.class);
     }
 
 
     /**
-     * @param requiresCompleteResponse A boolean flag to indicate whether an exception should be thrown
-     *                                 if the server returns partial data. If set true,
-     *                                 the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
-     *                                 when the response returned by the server has missing information (i.e. non-null values returned as null).
-     *
-     *                                 ONLY SET AS FALSE if the consumer is responsible for manually handling null checks.
-     *
      * @return An implementation of Lyft's User API endpoints that REQUIRE a user access token.
      * The return type of API calls will be {@link rx.Observable}. Used by the LyftButton.
+     *
+     * The Retrofit client will not massage the response passed by the server. It is the responsibility of the caller
+     * to verify that the required contents of each payload is non-null before access.
      */
-    public LyftUserApiRx getLyftUserApiRx(boolean requiresCompleteResponse) {
-        Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient(), requiresCompleteResponse)
+    public LyftUserApiRx getUncheckedLyftUserApiRx() {
+        Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient(), false)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         return retrofitUserApi.create(LyftUserApiRx.class);
