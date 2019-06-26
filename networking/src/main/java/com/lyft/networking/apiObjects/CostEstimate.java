@@ -2,6 +2,7 @@ package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
 import com.lyft.networking.apiObjects.internal.Validatable;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -12,18 +13,21 @@ public class CostEstimate implements Validatable {
     /**
      * Ride type one of: (lyft, lyft_plus, lyft_line, lyft_premier, lyft_lux, lyft_luxsuv)
      */
+    @NotNull
     @SerializedName("ride_type")
     public final String ride_type;
 
     /**
      * A human readable description of the ride type.
      */
+    @NotNull
     @SerializedName("display_name")
     public final String display_name;
 
     /***
      *ISO 4217 currency code for the amount (e.g. USD).
      */
+    @NotNull
     @SerializedName("currency")
     public final String currency;
 
@@ -31,6 +35,7 @@ public class CostEstimate implements Validatable {
      * Estimated lower bound for trip cost, in minor units (cents). Estimates are not guaranteed,
      * and only provide a reasonable range based on current conditions.
      */
+    @NotNull
     @SerializedName("estimated_cost_cents_min")
     public final Integer estimated_cost_cents_min;
 
@@ -38,24 +43,28 @@ public class CostEstimate implements Validatable {
      * Estimated upper bound for trip cost, in minor units (cents). Estimates are not guaranteed,
      * and only provide a reasonable range based on current conditions.
      */
+    @NotNull
     @SerializedName("estimated_cost_cents_max")
     public final Integer estimated_cost_cents_max;
 
     /**
      * Estimated distance for this ride as expressed in miles.
      */
+    @NotNull
     @SerializedName("estimated_distance_miles")
     public final Double estimated_distance_miles;
 
     /**
      * Estimated time to get from the start location to the end as expressed in seconds.
      */
+    @NotNull
     @SerializedName("estimated_duration_seconds")
     public final Integer estimated_duration_seconds;
 
     /**
      * The current primetime value
      */
+    @NotNull
     @SerializedName("primetime_percentage")
     public final String primetime_percentage;
 
@@ -72,8 +81,8 @@ public class CostEstimate implements Validatable {
      *
      * A token that should be used to confirm that the user has accepted current Prime Time pricing.
      */
-    @Nullable
     @Deprecated
+    @Nullable
     @SerializedName("primetime_confirmation_token")
     public final String primetime_confirmation_token;
 
