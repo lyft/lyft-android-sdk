@@ -2,12 +2,15 @@ package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
 import com.lyft.networking.apiObjects.internal.Validatable;
+import org.jetbrains.annotations.NotNull;
 
 public class LatLng implements Validatable {
 
+    @NotNull
     @SerializedName("lat")
     public final Double lat;
 
+    @NotNull
     @SerializedName("lng")
     public final Double lng;
 
