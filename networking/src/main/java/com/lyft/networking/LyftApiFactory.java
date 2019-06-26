@@ -25,6 +25,10 @@ public class LyftApiFactory {
      *
      * By default, the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      * if the response returned by the server has missing information (i.e. non-null values returned as null).
+     *
+     * THE CALLER MUST be able to handle {@link com.lyft.networking.exceptions.PartialResponseException}.
+     * Unhandled exceptions will cause a runtime crash.
+     *
      * To explicitly disallow this, invoke #getLyftPublicApi(boolean).
      */
     public LyftPublicApi getLyftPublicApi() {
@@ -32,10 +36,16 @@ public class LyftApiFactory {
     }
 
     /**
+     * Creates an implementation of Lyft's Public API, with an option of generating {@link com.lyft.networking.exceptions.PartialResponseException}
+     * should the server return incomplete response models.
+     *
      * @param requiresCompleteResponse A boolean flag to indicate whether an exception should be thrown
      *                                 if the server returns partial data. If set true,
      *                                 the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      *                                 when the response returned by the server has missing information (i.e. non-null values returned as null).
+     *
+     *                                 ONLY SET AS FALSE if the consumer is responsible for manually handling null checks.
+     *
      * @return An implementation of Lyft's Public API endpoints that do not require a user.
      * The return type of API calls will be {@link retrofit2.Call}. Used by the LyftButton.
      */
@@ -50,6 +60,10 @@ public class LyftApiFactory {
      *
      * By default, the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      * if the response returned by the server has missing information (i.e. non-null values returned as null).
+     *
+     * THE CALLER MUST be able to handle {@link com.lyft.networking.exceptions.PartialResponseException}.
+     * Unhandled exceptions will cause a runtime crash.
+     *
      * To explicitly disallow this, invoke #getLyftPublicApiRx(boolean).
      */
     public LyftPublicApiRx getLyftPublicApiRx() {
@@ -61,6 +75,9 @@ public class LyftApiFactory {
      *                                 if the server returns partial data. If set true,
      *                                 the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      *                                 when the response returned by the server has missing information (i.e. non-null values returned as null).
+     *
+     *                                 ONLY SET AS FALSE if the consumer is responsible for manually handling null checks.
+     *
      * @return An implementation of Lyft's Public API endpoints that do not require a user.
      * The return type of API calls will be {@link rx.Observable}.
      */
@@ -77,6 +94,10 @@ public class LyftApiFactory {
      *
      * By default, the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      * if the response returned by the server has missing information (i.e. non-null values returned as null).
+     *
+     * THE CALLER MUST be able to handle {@link com.lyft.networking.exceptions.PartialResponseException}.
+     * Unhandled exceptions will cause a runtime crash.
+     *
      * To explicitly disallow this, invoke #getLyftUserApi(boolean).
      */
     public LyftUserApi getLyftUserApi() {
@@ -88,6 +109,9 @@ public class LyftApiFactory {
      *                                 if the server returns partial data. If set true,
      *                                 the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      *                                 when the response returned by the server has missing information (i.e. non-null values returned as null).
+     *
+     *                                 ONLY SET AS FALSE if the consumer is responsible for manually handling null checks.
+     *
      * @return An implementation of Lyft's User API endpoints that REQUIRE a user access token.
      * The return type of API calls will be {@link retrofit2.Call}. Used by the LyftButton.
      */
@@ -102,6 +126,10 @@ public class LyftApiFactory {
      *
      * By default, the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      * if the response returned by the server has missing information (i.e. non-null values returned as null).
+     *
+     * THE CALLER MUST be able to handle {@link com.lyft.networking.exceptions.PartialResponseException}.
+     * Unhandled exceptions will cause a runtime crash.
+     *
      * To explicitly disallow this, invoke #getLyftUserApiRx(boolean).
      */
     public LyftUserApiRx getLyftUserApiRx() {
@@ -114,11 +142,14 @@ public class LyftApiFactory {
      *                                 if the server returns partial data. If set true,
      *                                 the Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      *                                 when the response returned by the server has missing information (i.e. non-null values returned as null).
+     *
+     *                                 ONLY SET AS FALSE if the consumer is responsible for manually handling null checks.
+     *
      * @return An implementation of Lyft's User API endpoints that REQUIRE a user access token.
      * The return type of API calls will be {@link rx.Observable}. Used by the LyftButton.
      */
     public LyftUserApiRx getLyftUserApiRx(boolean requiresCompleteResponse) {
-        Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient(), false)
+        Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient(), requiresCompleteResponse)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         return retrofitUserApi.create(LyftUserApiRx.class);
