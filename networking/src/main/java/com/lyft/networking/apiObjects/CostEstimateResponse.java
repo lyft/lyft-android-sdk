@@ -1,11 +1,11 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
 import java.util.List;
 
-public class CostEstimateResponse implements ICompleteData {
+public class CostEstimateResponse implements Validatable {
 
     @SerializedName("cost_estimates")
     public final List<CostEstimate> cost_estimates;

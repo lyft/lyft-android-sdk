@@ -1,13 +1,13 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * A non-guaranteed estimate of price
  **/
-public class CostEstimate implements ICompleteData {
+public class CostEstimate implements Validatable {
 
     /**
      * Ride type one of: (lyft, lyft_plus, lyft_line, lyft_premier, lyft_lux, lyft_luxsuv)

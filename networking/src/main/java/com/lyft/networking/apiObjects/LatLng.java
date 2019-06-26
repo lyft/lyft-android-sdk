@@ -1,9 +1,9 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
-public class LatLng implements ICompleteData {
+public class LatLng implements Validatable {
 
     @SerializedName("lat")
     public final Double lat;

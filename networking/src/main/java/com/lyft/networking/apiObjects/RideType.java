@@ -1,10 +1,10 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 import org.jetbrains.annotations.Nullable;
 
-public class RideType implements ICompleteData {
+public class RideType implements Validatable {
 
     @SerializedName("ride_type")
     public final String ride_type;

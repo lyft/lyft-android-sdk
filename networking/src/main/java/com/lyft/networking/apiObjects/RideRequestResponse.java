@@ -1,13 +1,13 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
 /**
  * Response model for requests for Rides on the Lyft Platform
  */
 
-public class RideRequestResponse implements ICompleteData {
+public class RideRequestResponse implements Validatable {
     /**
      * Requested ride ID.
      */

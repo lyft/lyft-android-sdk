@@ -1,12 +1,12 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
 /**
  * Estimated Time of Arrival
  **/
-public class Eta implements ICompleteData {
+public class Eta implements Validatable {
 
     @SerializedName("ride_type")
     public final String ride_type;

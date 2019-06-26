@@ -1,13 +1,13 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
 /**
  * Model containing vehicle meta data
  */
 
-public class Vehicle implements ICompleteData {
+public class Vehicle implements Validatable {
     /**
      * Vehicle year
      */

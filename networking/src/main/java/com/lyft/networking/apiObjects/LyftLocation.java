@@ -1,7 +1,7 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
  * location of rides on the Lyft Platform.
  */
 
-public class LyftLocation extends LatLng implements ICompleteData {
+public class LyftLocation extends LatLng implements Validatable {
     /**
      * Display address at/near the given location.
      */

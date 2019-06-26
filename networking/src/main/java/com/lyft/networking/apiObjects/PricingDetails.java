@@ -1,9 +1,9 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
-public class PricingDetails implements ICompleteData {
+public class PricingDetails implements Validatable {
 
     @SerializedName("base_charge")
     public final Integer base_charge;

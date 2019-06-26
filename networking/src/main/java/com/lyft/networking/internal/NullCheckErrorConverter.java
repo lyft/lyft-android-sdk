@@ -1,6 +1,6 @@
 package com.lyft.networking.internal;
 
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 import com.lyft.networking.exceptions.PartialResponseException;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -8,7 +8,6 @@ import retrofit2.Retrofit;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
 public class NullCheckErrorConverter extends Converter.Factory {
@@ -22,9 +21,9 @@ public class NullCheckErrorConverter extends Converter.Factory {
             public Object convert(ResponseBody value) throws IOException {
                 Object result = delegate.convert(value);
 
-                if (result instanceof ICompleteData) {
-                    ICompleteData completeData = (ICompleteData) result;
-                    if (!completeData.isValid()) {
+                if (result instanceof Validatable) {
+                    Validatable validatable = (Validatable) result;
+                    if (!validatable.isValid()) {
                         throw new PartialResponseException(result);
                     }
                 }

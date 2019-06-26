@@ -1,11 +1,11 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
-import com.lyft.networking.apiObjects.internal.ICompleteData;
+import com.lyft.networking.apiObjects.internal.Validatable;
 
 import java.util.List;
 
-public class NearbyDriversResponse implements ICompleteData {
+public class NearbyDriversResponse implements Validatable {
 
     @SerializedName("nearby_drivers")
     public final List<NearbyDriversByRideType> nearby_drivers;
