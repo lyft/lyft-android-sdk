@@ -119,14 +119,14 @@ public class MockLyftPublicApi implements LyftPublicApi
                                                 @Query("ride_type") String rideType) {
         List<RideType> rideTypes = new ArrayList<>();
         if (rideType == null) {
-            rideTypes.add(new RideType(LYFT_LINE, getDisplayNameForRideType(LYFT_LINE), 4, null, null));
-            rideTypes.add(new RideType(LYFT, getDisplayNameForRideType(LYFT), 4, null, null));
-            rideTypes.add(new RideType(LYFT_PLUS, getDisplayNameForRideType(LYFT_PLUS), 6, null, null));
-            rideTypes.add(new RideType(LYFT_PREMIER, getDisplayNameForRideType(LYFT_PREMIER), 4, null, null));
-            rideTypes.add(new RideType(LYFT_LUX, getDisplayNameForRideType(LYFT_LUX), 4, null, null));
-            rideTypes.add(new RideType(LYFT_LUX_SUV, getDisplayNameForRideType(LYFT_LUX_SUV), 6, null, null));
+            rideTypes.add(new RideType(LYFT_LINE, getDisplayNameForRideType(LYFT_LINE), 4, null, null, null));
+            rideTypes.add(new RideType(LYFT, getDisplayNameForRideType(LYFT), 4, null, null, null));
+            rideTypes.add(new RideType(LYFT_PLUS, getDisplayNameForRideType(LYFT_PLUS), 6, null, null, null));
+            rideTypes.add(new RideType(LYFT_PREMIER, getDisplayNameForRideType(LYFT_PREMIER), 4, null, null, null));
+            rideTypes.add(new RideType(LYFT_LUX, getDisplayNameForRideType(LYFT_LUX), 4, null, null, null));
+            rideTypes.add(new RideType(LYFT_LUX_SUV, getDisplayNameForRideType(LYFT_LUX_SUV), 6, null, null, null));
         } else {
-            rideTypes.add(new RideType(rideType, getDisplayNameForRideType(rideType), 6, null, null));
+            rideTypes.add(new RideType(rideType, getDisplayNameForRideType(rideType), 6, null, null, null));
         }
         RideTypesResponse rideTypesResponse = new RideTypesResponse(rideTypes);
         return delegate.returningResponse(rideTypesResponse).getRidetypes(lat, lng, rideType);
