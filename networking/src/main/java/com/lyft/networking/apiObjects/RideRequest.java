@@ -1,5 +1,8 @@
 package com.lyft.networking.apiObjects;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Model containing information necessary to request a
  * ride on the Lyft Platfrom
@@ -9,11 +12,13 @@ public class RideRequest
     /**
      * Required: Pickup location
      */
+    @NotNull
     public LyftLocation origin;
 
     /**
      * Drop off location
      */
+    @Nullable
     public LyftLocation destination;
 
     /**
@@ -21,6 +26,7 @@ public class RideRequest
      * Availability - Ride Types for acceptable values (possible examples
      * include: lyft, lyft_plus, etc).
      */
+    @NotNull
     public String  ride_type;
 
     /**
@@ -28,6 +34,7 @@ public class RideRequest
      * Deprecated, use {@link RideRequest#cost_token} instead.
      */
     @Deprecated
+    @Nullable
     public String primetime_confirmation_token;
 
     /**
@@ -40,6 +47,7 @@ public class RideRequest
      * also in the Availability - Ride Estimates response when querying that
      * endpoint with a user context.
      */
+    @Nullable
     public String cost_token;
 
     public RideRequest(LyftLocation origin, LyftLocation destination, String ride_type) { this(origin, destination, ride_type, null);}
