@@ -10,6 +10,8 @@ import java.util.List;
  */
 
 public class UserRideHistoryResponse implements Validatable {
+
+
     @SerializedName("ride_history")
     public List<RideHistory> ride_history;
 

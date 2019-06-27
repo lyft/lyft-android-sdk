@@ -2,6 +2,7 @@ package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
 import com.lyft.networking.apiObjects.internal.Validatable;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -9,32 +10,40 @@ import org.jetbrains.annotations.Nullable;
  */
 
 public class RideHistory implements Validatable {
+
     /**
      * Ride id
      */
+    @NotNull
     @SerializedName("ride_id")
     public String ride_id;
+
     /**
      * Ride type expressed as one of (lyft, lyft_plus, lyft_line, etc).
      */
+    @NotNull
     @SerializedName("ride_type")
     public String ride_type;
+
     /**
      * Ride status expressed as one of (pending, accepted, arrived,
      * pickedUp, droppedOff, canceled, unknown).
      */
+    @NotNull
     @SerializedName("status")
     public String status;
 
     /**
      * Prime Time percentage applied to the base price
      */
+    @NotNull
     @SerializedName("primetime_percentage")
     public String primetime_percentage;
 
     /**
      * The ISO8601 Timestamp of when the request was made.
      */
+    @NotNull
     @SerializedName("requested_at")
     public String requested_at;
 
@@ -83,6 +92,7 @@ public class RideHistory implements Validatable {
     @Nullable
     @SerializedName("feedback")
     public String feedback;
+
     /**
      * The array of actors who may cancel the ride at this point (driver, passenger, dispatcher).
      */
@@ -93,18 +103,20 @@ public class RideHistory implements Validatable {
     /**
      * Actual location of passenger pickup.
      */
+    @Nullable
     @SerializedName("pickup")
     public LyftLocation pickup;
 
     /**
      * Requested location for passenger drop off.
      */
+    @Nullable
     @SerializedName("destination")
-
     public LyftLocation destination;
     /**
      * Actual location of passenger drop off
     */
+    @Nullable
     @SerializedName("dropoff")
     public LyftLocation dropoff;
 
@@ -119,44 +131,55 @@ public class RideHistory implements Validatable {
     /**
      * Requested location for passenger pickup.
      */
+    @Nullable
     @SerializedName("origin")
     public EtaLocation origin;
 
     /**
      * The passenger meta data
      */
+    @Nullable
     @SerializedName("passenger")
     public LyftUser passenger;
 
     /**
      * Driver meta data
      */
+    @Nullable
     @SerializedName("driver")
     public LyftDriver driver;
+
     /**
      * Total cost for the ride. Available after ride status changes to droppedOff and
      * the passenger has rated and paid for the ride, plus some processing time.
      */
+    @Nullable
     @SerializedName("price")
     public RidePrice price;
 
     /**
      * The cost of cancellation if there would be a penalty
      */
+    @Nullable
     @SerializedName("cancellation_price")
     public RideCancellation cancellation_price;
+
     /**
      * Vehicle meta data
      */
+    @Nullable
     @SerializedName("vehicle")
     public Vehicle vehicle;
 
+    @Nullable
     @SerializedName("distance_miles")
     public double distance_miles;
 
+    @Nullable
     @SerializedName("duration_seconds")
     public double duration_seconds;
 
+    @Nullable
     @SerializedName("rating")
     public int rating;
 
