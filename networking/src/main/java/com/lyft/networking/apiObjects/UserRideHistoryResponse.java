@@ -2,6 +2,7 @@ package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
 import com.lyft.networking.apiObjects.internal.Validatable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class UserRideHistoryResponse implements Validatable {
 
-
+    @NotNull
     @SerializedName("ride_history")
     public List<RideHistory> ride_history;
 
