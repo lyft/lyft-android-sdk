@@ -9,7 +9,7 @@ class RequestInterceptor implements Interceptor {
 
     static final String AUTHORIZATION_HEADER = "Authorization";
     static final String USER_AGENT_HEADER = "User-Agent";
-    private static final String USER_AGENT = "lyft-mobile-sdk:android::1.0.3";
+    private static final String USER_AGENT = "lyft-mobile-sdk:android::2.0.0";
     private final String clientToken;
 
     RequestInterceptor(String clientToken) {
