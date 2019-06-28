@@ -4,9 +4,9 @@ import com.lyft.networking.apiObjects.CostEstimateResponse;
 import com.lyft.networking.apiObjects.EtaEstimateResponse;
 import com.lyft.networking.apiObjects.NearbyDriversResponse;
 import com.lyft.networking.apiObjects.RideTypesResponse;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 public interface LyftPublicApiRx {
 

@@ -19,12 +19,16 @@ android {
 }
 
 dependencies {
-    compile project(path: ':networking')
-    compile project(path: ':deeplink')
+    implementation project(path: ':networking')
+    implementation project(path: ':deeplink')
 
-    testCompile 'junit:junit:' + junitVersion
-    testCompile 'org.mockito:mockito-core:' + mockitoVersion
-    testCompile project(path: ':test-utils')
+    implementation 'org.jetbrains:annotations-java5:' + jetbrainsVersion
+    implementation 'com.squareup.retrofit2:retrofit:' + retrofitVersion
+
+    testImplementation 'junit:junit:' + junitVersion
+    testImplementation 'org.mockito:mockito-core:' + mockitoVersion
+    testImplementation 'com.squareup.retrofit2:retrofit-mock:' + retrofitVersion
+    testImplementation project(path: ':test-utils')
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

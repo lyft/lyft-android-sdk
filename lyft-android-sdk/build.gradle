@@ -19,9 +19,9 @@ android {
 }
 
 dependencies {
-    compile project(path: ':lyft-button')
-    compile project(path: ':networking')
-    compile project(path: ':deeplink')
+    implementation project(path: ':lyft-button')
+    implementation project(path: ':networking')
+    implementation project(path: ':deeplink')
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
