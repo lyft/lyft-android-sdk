@@ -32,18 +32,18 @@ subprojects { subProject ->
 
 subprojects {
     ext.androidBuildToolsVersion = "28.0.3"
-    ext.androidCompileSDK = 23
+    ext.androidCompileSDK = 28
     ext.androidMinSdk = 15
-    ext.androidSupportLibrariesVersion = '23.4.0'
+    ext.androidSupportLibrariesVersion = '28.0.0'
     ext.androidTargetSDK = 23
-    ext.googlePlayVersion = '9.4.0'
+    ext.googlePlayVersion = '15.0.0'
     ext.jetbrainsVersion = '15.0'
     ext.junitVersion = '4.12'
     ext.lyftSdkVersionCode = 1
     ext.lyftSdkVersionName = VERSION_NAME
-    ext.mockitoVersion = '1.10.19'
+    ext.mockitoVersion = '2.25.0'
     ext.okhttpVersion = '3.3.1'
-    ext.retrofitVersion = '2.1.0'
+    ext.retrofitVersion = '2.6.0'
 }
 
 task clean(type: Delete) {
