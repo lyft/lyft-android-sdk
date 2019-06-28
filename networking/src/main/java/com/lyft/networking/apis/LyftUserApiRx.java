@@ -6,13 +6,13 @@ import com.lyft.networking.apiObjects.RideRequest;
 import com.lyft.networking.apiObjects.RideRequestResponse;
 import com.lyft.networking.apiObjects.UserRideHistoryResponse;
 
+import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Retrofit API interface for requests made on behalf of the user on the Lyft Platform.

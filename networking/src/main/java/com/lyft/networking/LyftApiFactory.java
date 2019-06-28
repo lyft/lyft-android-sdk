@@ -8,7 +8,7 @@ import com.lyft.networking.apis.LyftUserApiRx;
 import com.lyft.networking.internal.NullCheckErrorConverter;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LyftApiFactory {
@@ -50,7 +50,7 @@ public class LyftApiFactory {
 
     /**
      * @return An implementation of Lyft's Public API endpoints that do not require a user.
-     * The return type of API calls will be {@link rx.Observable}.
+     * The return type of API calls will be {@link io.reactivex.Observable}.
      *
      * The Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      * if the response returned by the server has missing information (i.e. non-null values returned as null).
@@ -62,21 +62,21 @@ public class LyftApiFactory {
      */
     public LyftPublicApiRx getLyftPublicApiRx() {
         Retrofit retrofitPublicApi = getRetrofitBuilder(getPublicOkHttpClient(), true)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofitPublicApi.create(LyftPublicApiRx.class);
     }
 
     /**
      * @return An implementation of Lyft's Public API endpoints that do not require a user.
-     * The return type of API calls will be {@link rx.Observable}.
+     * The return type of API calls will be {@link io.reactivex.Observable}.
      *
      * The Retrofit client will not massage the response passed by the server. It is the responsibility of the caller
      * to verify that the required contents of each payload is non-null before access.
      */
     public LyftPublicApiRx getUncheckedLyftPublicApiRx() {
         Retrofit retrofitPublicApi = getRetrofitBuilder(getPublicOkHttpClient(), false)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofitPublicApi.create(LyftPublicApiRx.class);
     }
@@ -112,7 +112,7 @@ public class LyftApiFactory {
 
     /**
      * @return An implementation of Lyft's User API endpoints that REQUIRE a user access token.
-     * The return type of API calls will be {@link rx.Observable}. Used by the LyftButton.
+     * The return type of API calls will be {@link io.reactivex.Observable}. Used by the LyftButton.
      *
      * The Retrofit client will throw a {@link com.lyft.networking.exceptions.PartialResponseException}
      * if the response returned by the server has missing information (i.e. non-null values returned as null).
@@ -124,7 +124,7 @@ public class LyftApiFactory {
      */
     public LyftUserApiRx getLyftUserApiRx() {
         Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient(), true)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofitUserApi.create(LyftUserApiRx.class);
     }
@@ -132,14 +132,14 @@ public class LyftApiFactory {
 
     /**
      * @return An implementation of Lyft's User API endpoints that REQUIRE a user access token.
-     * The return type of API calls will be {@link rx.Observable}. Used by the LyftButton.
+     * The return type of API calls will be {@link io.reactivex.Observable}. Used by the LyftButton.
      *
      * The Retrofit client will not massage the response passed by the server. It is the responsibility of the caller
      * to verify that the required contents of each payload is non-null before access.
      */
     public LyftUserApiRx getUncheckedLyftUserApiRx() {
         Retrofit retrofitUserApi = getRetrofitBuilder(getUserOkHttpClient(), false)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofitUserApi.create(LyftUserApiRx.class);
     }
