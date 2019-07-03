@@ -12,7 +12,7 @@ import com.lyft.networking.apiObjects.GoogleGeocodeResponse;
 import com.lyft.networking.apiObjects.GoogleGeocodeResult;
 import com.lyft.networking.apiObjects.GoogleLatLng;
 import com.lyft.networking.apis.internal.GoogleApi;
-import com.lyft.networking.apis.LyftPublicApi;
+import com.lyft.networking.apis.LyftApi;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -29,14 +29,14 @@ import retrofit2.Response;
 
 class LyftButtonCallManager {
 
-    private final LyftPublicApi publicApi;
+    private final LyftApi publicApi;
     private final String clientId;
     private final GoogleApi googleApi;
     private final Set<Call> callSet = Collections.newSetFromMap(new ConcurrentHashMap<Call, Boolean>());
     private final ExecutorService executorService;
     private RideParams rideParams;
 
-    LyftButtonCallManager(String clientId, LyftPublicApi publicApi, GoogleApi googleApi, ExecutorService executorService) {
+    LyftButtonCallManager(String clientId, LyftApi publicApi, GoogleApi googleApi, ExecutorService executorService) {
         this.clientId = clientId;
         this.publicApi = publicApi;
         this.googleApi = googleApi;

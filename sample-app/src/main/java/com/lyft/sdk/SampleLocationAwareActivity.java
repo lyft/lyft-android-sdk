@@ -23,7 +23,7 @@ import com.lyft.networking.ApiConfig;
 import com.lyft.networking.LyftApiFactory;
 import com.lyft.networking.apiObjects.RideType;
 import com.lyft.networking.apiObjects.RideTypesResponse;
-import com.lyft.networking.apis.LyftPublicApi;
+import com.lyft.networking.apis.LyftApi;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +39,7 @@ public class SampleLocationAwareActivity extends Activity {
     private final Set<Call> callSet = new HashSet<>();
     private Spinner rideTypeSpinner;
     private ArrayAdapter<String> adapter;
-    private LyftPublicApi lyftPublicApi;
+    private LyftApi lyftApi;
     private LyftButton lyftButton;
     private GoogleApiClient googleApiClient;
     private double currentLat = 0.0;
@@ -57,7 +57,7 @@ public class SampleLocationAwareActivity extends Activity {
 
         lyftButton = (LyftButton) findViewById(R.id.lyft_button);
         lyftButton.setApiConfig(apiConfig);
-        lyftPublicApi = new LyftApiFactory(apiConfig).getLyftPublicApi();
+        lyftApi = new LyftApiFactory(apiConfig).getLyftPublicApi();
 
         initializeRideTypeSpinner();
         setupLocationApi();
@@ -139,7 +139,7 @@ public class SampleLocationAwareActivity extends Activity {
     }
 
     private void getRideTypesAtCurrentLocation() {
-        Call<RideTypesResponse> call = lyftPublicApi.getRidetypes(currentLat, currentLng, null);
+        Call<RideTypesResponse> call = lyftApi.getRidetypes(currentLat, currentLng, null);
         callSet.add(call);
         call.enqueue(new Callback<RideTypesResponse>() {
             @Override

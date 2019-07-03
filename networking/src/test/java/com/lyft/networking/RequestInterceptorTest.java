@@ -1,6 +1,6 @@
 package com.lyft.networking;
 
-import com.lyft.networking.apis.LyftPublicApi;
+import com.lyft.networking.apis.LyftApi;
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -30,7 +30,7 @@ public class RequestInterceptorTest {
         requestInterceptor = new RequestInterceptor(CLIENT_TOKEN);
         chain = mock(Interceptor.Chain.class);
         argumentCaptor = ArgumentCaptor.forClass(Request.class);
-        Request request = new Request.Builder().url(LyftPublicApi.API_ROOT).build();
+        Request request = new Request.Builder().url(LyftApi.API_ROOT).build();
         when(chain.request()).thenReturn(request);
     }
 

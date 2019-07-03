@@ -1,6 +1,6 @@
 package com.lyft.networking;
 
-import com.lyft.networking.apis.LyftPublicApi;
+import com.lyft.networking.apis.LyftApi;
 import com.lyft.networking.apis.LyftPublicApiRx;
 
 import com.lyft.networking.internal.NullCheckErrorConverter;
@@ -29,9 +29,9 @@ public class LyftApiFactory {
      *
      * To avoid an exception and manually handle null checking, use #getUnchekedLyftPublicApi().
      */
-    public LyftPublicApi getLyftPublicApi() {
+    public LyftApi getLyftPublicApi() {
         Retrofit retrofitPublicApi = getRetrofitBuilder(true).build();
-        return retrofitPublicApi.create(LyftPublicApi.class);
+        return retrofitPublicApi.create(LyftApi.class);
     }
 
     /**
@@ -41,9 +41,9 @@ public class LyftApiFactory {
      * The Retrofit client will not massage the response passed by the server. It is the responsibility of the caller
      * to verify that the required contents of each payload is non-null before access.
      */
-    public LyftPublicApi getUnchekedLyftPublicApi() {
+    public LyftApi getUnchekedLyftPublicApi() {
         Retrofit retrofitPublicApi = getRetrofitBuilder(false).build();
-        return retrofitPublicApi.create(LyftPublicApi.class);
+        return retrofitPublicApi.create(LyftApi.class);
     }
 
     /**
@@ -82,7 +82,7 @@ public class LyftApiFactory {
     private Retrofit.Builder getRetrofitBuilder(boolean requiresCompleteResponse) {
         OkHttpClient publicClient = getPublicOkHttpClient();
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(LyftPublicApi.API_ROOT)
+                .baseUrl(LyftApi.API_ROOT)
                 .client(publicClient);
 
         if (requiresCompleteResponse) {
