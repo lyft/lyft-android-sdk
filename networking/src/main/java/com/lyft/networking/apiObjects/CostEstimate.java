@@ -26,38 +26,53 @@ public class CostEstimate implements Validatable {
 
     /***
      *ISO 4217 currency code for the amount (e.g. USD).
+     *
+     * Can be returned as null: will only be populated if the corresponding request specified
+     * a destination.
      */
-    @NotNull
+    @Nullable
     @SerializedName("currency")
     public final String currency;
 
     /**
      * Estimated lower bound for trip cost, in minor units (cents). Estimates are not guaranteed,
      * and only provide a reasonable range based on current conditions.
+     *
+     * Can be returned as null: will only be populated if the corresponding request specified
+     * a destination.
      */
-    @NotNull
+    @Nullable
     @SerializedName("estimated_cost_cents_min")
     public final Integer estimated_cost_cents_min;
 
     /**
      * Estimated upper bound for trip cost, in minor units (cents). Estimates are not guaranteed,
      * and only provide a reasonable range based on current conditions.
+     *
+     * Can be returned as null: will only be populated if the corresponding request specified
+     * a destination.
      */
-    @NotNull
+    @Nullable
     @SerializedName("estimated_cost_cents_max")
     public final Integer estimated_cost_cents_max;
 
     /**
      * Estimated distance for this ride as expressed in miles.
+     *
+     * Can be returned as null: will only be populated if the corresponding request specified
+     * a destination.
      */
-    @NotNull
+    @Nullable
     @SerializedName("estimated_distance_miles")
     public final Double estimated_distance_miles;
 
     /**
      * Estimated time to get from the start location to the end as expressed in seconds.
+     *
+     * Can be returned as null: will only be populated if the corresponding request specified
+     * a destination.
      */
-    @NotNull
+    @Nullable
     @SerializedName("estimated_duration_seconds")
     public final Integer estimated_duration_seconds;
 
@@ -102,11 +117,6 @@ public class CostEstimate implements Validatable {
     public boolean isValid() {
         return ride_type != null
                 && display_name != null
-                && currency != null
-                && estimated_cost_cents_min != null
-                && estimated_cost_cents_max != null
-                && estimated_distance_miles != null
-                && estimated_duration_seconds != null
                 && primetime_percentage != null;
     }
 }
