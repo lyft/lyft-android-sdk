@@ -143,7 +143,7 @@ public class MockLyftApi implements LyftApi
     }
 
     private static CostEstimate createCostEstimateForRideType(String rideType) {
-        return new CostEstimate(rideType, getDisplayNameForRideType(rideType), "USD", null, null, null, null, null, null, null);
+        return new CostEstimate(rideType, getDisplayNameForRideType(rideType), "USD", null, null, null, null, null);
     }
 
     private static boolean isValidRideType(String rideType) {
