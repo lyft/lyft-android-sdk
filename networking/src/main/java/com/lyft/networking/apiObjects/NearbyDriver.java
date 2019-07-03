@@ -3,10 +3,13 @@ package com.lyft.networking.apiObjects;
 import com.google.gson.annotations.SerializedName;
 import com.lyft.networking.apiObjects.internal.Validatable;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class NearbyDriver implements Validatable {
 
+    @NotNull
     @SerializedName("locations")
     public final List<LatLng> locations;
 
@@ -26,6 +29,10 @@ public class NearbyDriver implements Validatable {
 
     @Override
     public boolean isValid() {
+        if (locations == null) {
+            return false;
+        }
+
         for (LatLng location : locations) {
             if (!location.isValid()) {
                 return false;
