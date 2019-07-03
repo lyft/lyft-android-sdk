@@ -27,9 +27,9 @@ public class LyftApiFactory {
      * THE CALLER MUST be able to handle {@link com.lyft.networking.exceptions.PartialResponseException}.
      * Unhandled exceptions will cause a runtime crash.
      *
-     * To avoid an exception and manually handle null checking, use #getUnchekedLyftPublicApi().
+     * To avoid an exception and manually handle null checking, use #getUnchekedLyftApi().
      */
-    public LyftApi getLyftPublicApi() {
+    public LyftApi getLyftApi() {
         Retrofit retrofitPublicApi = getRetrofitBuilder(true).build();
         return retrofitPublicApi.create(LyftApi.class);
     }
@@ -41,7 +41,7 @@ public class LyftApiFactory {
      * The Retrofit client will not massage the response passed by the server. It is the responsibility of the caller
      * to verify that the required contents of each payload is non-null before access.
      */
-    public LyftApi getUnchekedLyftPublicApi() {
+    public LyftApi getUnchekedLyftApi() {
         Retrofit retrofitPublicApi = getRetrofitBuilder(false).build();
         return retrofitPublicApi.create(LyftApi.class);
     }
@@ -56,9 +56,9 @@ public class LyftApiFactory {
      * THE CALLER MUST be able to handle {@link com.lyft.networking.exceptions.PartialResponseException}.
      * Unhandled exceptions will cause a runtime crash.
      *
-     * To avoid an exception and manually handle null checking, use #getUnchekedLyftPublicApiRx().
+     * To avoid an exception and manually handle null checking, use #getUncheckedLyftApiRx().
      */
-    public LyftApiRx getLyftPublicApiRx() {
+    public LyftApiRx getLyftApiRx() {
         Retrofit retrofitPublicApi = getRetrofitBuilder(true)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -72,7 +72,7 @@ public class LyftApiFactory {
      * The Retrofit client will not massage the response passed by the server. It is the responsibility of the caller
      * to verify that the required contents of each payload is non-null before access.
      */
-    public LyftApiRx getUncheckedLyftPublicApiRx() {
+    public LyftApiRx getUncheckedLyftApiRx() {
         Retrofit retrofitPublicApi = getRetrofitBuilder(false)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -92,8 +92,7 @@ public class LyftApiFactory {
         return builder.addConverterFactory(GsonConverterFactory.create());
     }
 
-    private OkHttpClient getPublicOkHttpClient()
-    {
+    private OkHttpClient getPublicOkHttpClient() {
         return new OkHttpClient.Builder()
                 .addInterceptor(new RequestInterceptor(apiConfig.getClientToken()))
                 .build();

@@ -57,7 +57,7 @@ public class SampleLocationAwareActivity extends Activity {
 
         lyftButton = (LyftButton) findViewById(R.id.lyft_button);
         lyftButton.setApiConfig(apiConfig);
-        lyftApi = new LyftApiFactory(apiConfig).getLyftPublicApi();
+        lyftApi = new LyftApiFactory(apiConfig).getLyftApi();
 
         initializeRideTypeSpinner();
         setupLocationApi();
