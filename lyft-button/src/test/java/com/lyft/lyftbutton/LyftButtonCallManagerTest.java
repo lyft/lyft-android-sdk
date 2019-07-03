@@ -6,10 +6,10 @@ import com.lyft.networking.apiObjects.CostEstimateResponse;
 import com.lyft.networking.apiObjects.Eta;
 import com.lyft.networking.apiObjects.EtaEstimateResponse;
 import com.lyft.networking.apiObjects.GoogleLatLng;
-import com.lyft.networking.apis.LyftPublicApi;
+import com.lyft.networking.apis.LyftApi;
 import com.lyft.networking.apis.internal.GoogleApi;
 import com.lyft.testutils.MockGoogleApi;
-import com.lyft.testutils.MockLyftPublicApi;
+import com.lyft.testutils.MockLyftApi;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +48,7 @@ public class LyftButtonCallManagerTest {
     private final ArgumentCaptor<Eta> etaArgumentCaptor = ArgumentCaptor.forClass(Eta.class);
     private final ArgumentCaptor<CostEstimate> costEstimateArgumentCaptor = ArgumentCaptor.forClass(CostEstimate.class);
     private LyftButtonCallManager callManager;
-    private MockLyftPublicApi lyftPublicApi;
+    private MockLyftApi lyftPublicApi;
     private MockGoogleApi googleApi;
 
     @Mock
@@ -58,7 +58,7 @@ public class LyftButtonCallManagerTest {
     public void setup() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(LyftPublicApi.API_ROOT)
+                .baseUrl(LyftApi.API_ROOT)
                 .build();
 
         NetworkBehavior behavior = NetworkBehavior.create();
@@ -68,8 +68,8 @@ public class LyftButtonCallManagerTest {
         MockRetrofit mockRetrofit = new MockRetrofit.Builder(retrofit)
                 .networkBehavior(behavior)
                 .build();
-        BehaviorDelegate<LyftPublicApi> lyftApidelegate = mockRetrofit.create(LyftPublicApi.class);
-        lyftPublicApi = spy(new MockLyftPublicApi(lyftApidelegate));
+        BehaviorDelegate<LyftApi> lyftApidelegate = mockRetrofit.create(LyftApi.class);
+        lyftPublicApi = spy(new MockLyftApi(lyftApidelegate));
 
         BehaviorDelegate<GoogleApi> googleApiDelegate = mockRetrofit.create(GoogleApi.class);
         googleApi = spy(new MockGoogleApi(googleApiDelegate));

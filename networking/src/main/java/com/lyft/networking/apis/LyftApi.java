@@ -8,7 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface LyftPublicApi {
+public interface LyftApi {
 
     String API_ROOT = "https://api.lyft.com";
 

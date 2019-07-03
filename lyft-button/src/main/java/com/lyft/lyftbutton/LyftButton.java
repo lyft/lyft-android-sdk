@@ -100,7 +100,7 @@ public class LyftButton extends LinearLayout {
     public void setApiConfig(@NotNull ApiConfig apiConfig) {
         Preconditions.checkNotNull(apiConfig, "ApiConfig must not be null.");
         this.apiConfig = apiConfig;
-        callManager = new LyftButtonCallManager(apiConfig.getClientId(), new LyftApiFactory(apiConfig).getLyftPublicApi(),
+        callManager = new LyftButtonCallManager(apiConfig.getClientId(), new LyftApiFactory(apiConfig).getLyftApi(),
                 new GoogleApiBuilder().build(), Executors.newCachedThreadPool());
     }
 
