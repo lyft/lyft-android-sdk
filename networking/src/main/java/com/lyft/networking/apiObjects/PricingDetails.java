@@ -3,26 +3,35 @@ package com.lyft.networking.apiObjects;
 import com.google.gson.annotations.SerializedName;
 import com.lyft.networking.apiObjects.internal.Validatable;
 
+import org.jetbrains.annotations.NotNull;
+
 public class PricingDetails implements Validatable {
 
+    @NotNull
     @SerializedName("base_charge")
     public final Integer base_charge;
 
+    @NotNull
     @SerializedName("cancel_penalty_amount")
     public final Integer cancel_penalty_amount;
 
+    @NotNull
     @SerializedName("cost_minimum")
     public final Integer cost_minimum;
 
+    @NotNull
     @SerializedName("cost_per_mile")
     public final Integer cost_per_mile;
 
+    @NotNull
     @SerializedName("cost_per_minute")
     public final Integer cost_per_minute;
 
+    @NotNull
     @SerializedName("currency")
     public final String currency;
 
+    @NotNull
     @SerializedName("trust_and_service")
     public final Integer trust_and_service;
 
