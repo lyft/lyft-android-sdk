@@ -3,10 +3,13 @@ package com.lyft.networking.apiObjects;
 import com.google.gson.annotations.SerializedName;
 import com.lyft.networking.apiObjects.internal.Validatable;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class CostEstimateResponse implements Validatable {
 
+    @NotNull
     @SerializedName("cost_estimates")
     public final List<CostEstimate> cost_estimates;
 
@@ -26,6 +29,10 @@ public class CostEstimateResponse implements Validatable {
 
     @Override
     public boolean isValid() {
+        if (cost_estimates == null) {
+            return false;
+        }
+
         for (CostEstimate costEstimate : cost_estimates) {
             if (!costEstimate.isValid()) {
                 return false;
