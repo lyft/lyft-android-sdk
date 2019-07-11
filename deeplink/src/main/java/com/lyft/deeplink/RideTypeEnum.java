@@ -6,7 +6,7 @@ public enum RideTypeEnum {
     XL("lyft_plus", "Lyft XL"),
     LUX("lyft_premier", "Lyft Lux"),
     LUX_BLACK("lyft_lux", "Lyft Lux Black"),
-    LUX_BLACK_XL("lyft_lux_suv", "Lyft Lux Black XL");
+    LUX_BLACK_XL("lyft_luxsuv", "Lyft Lux Black XL");
 
     private String rideTypeKey;
     private String displayName;
