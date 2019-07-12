@@ -7,14 +7,14 @@ import com.lyft.networking.apiObjects.EtaEstimateResponse;
 import com.lyft.networking.apiObjects.NearbyDriversResponse;
 import com.lyft.networking.apiObjects.RideType;
 import com.lyft.networking.apiObjects.RideTypesResponse;
-import com.lyft.networking.apis.LyftPublicApi;
+import com.lyft.networking.apis.LyftApi;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Query;
 import retrofit2.mock.BehaviorDelegate;
 
-public class MockLyftPublicApi implements LyftPublicApi
+public class MockLyftApi implements LyftApi
 {
 
     private static final String LYFT_LINE = "lyft_line";
@@ -24,13 +24,13 @@ public class MockLyftPublicApi implements LyftPublicApi
     private static final String LYFT_LUX = "lyft_lux";
     private static final String LYFT_LUX_SUV = "lyft_luxsuv";
 
-    private final BehaviorDelegate<LyftPublicApi> delegate;
+    private final BehaviorDelegate<LyftApi> delegate;
     private CostEstimateResponse costEstimateResponse;
     private EtaEstimateResponse etaEstimateResponse;
     private boolean useCustomCostResponse = false;
     private boolean useCustomEtaResponse = false;
 
-    public MockLyftPublicApi(BehaviorDelegate<LyftPublicApi> delegate) {
+    public MockLyftApi(BehaviorDelegate<LyftApi> delegate) {
         this.delegate = delegate;
     }
 
@@ -119,14 +119,14 @@ public class MockLyftPublicApi implements LyftPublicApi
                                                 @Query("ride_type") String rideType) {
         List<RideType> rideTypes = new ArrayList<>();
         if (rideType == null) {
-            rideTypes.add(new RideType(LYFT_LINE, getDisplayNameForRideType(LYFT_LINE), 4, null, null, null));
-            rideTypes.add(new RideType(LYFT, getDisplayNameForRideType(LYFT), 4, null, null, null));
-            rideTypes.add(new RideType(LYFT_PLUS, getDisplayNameForRideType(LYFT_PLUS), 6, null, null, null));
-            rideTypes.add(new RideType(LYFT_PREMIER, getDisplayNameForRideType(LYFT_PREMIER), 4, null, null, null));
-            rideTypes.add(new RideType(LYFT_LUX, getDisplayNameForRideType(LYFT_LUX), 4, null, null, null));
-            rideTypes.add(new RideType(LYFT_LUX_SUV, getDisplayNameForRideType(LYFT_LUX_SUV), 6, null, null, null));
+            rideTypes.add(new RideType(LYFT_LINE, getDisplayNameForRideType(LYFT_LINE), 4, null, null));
+            rideTypes.add(new RideType(LYFT, getDisplayNameForRideType(LYFT), 4, null, null));
+            rideTypes.add(new RideType(LYFT_PLUS, getDisplayNameForRideType(LYFT_PLUS), 6, null, null));
+            rideTypes.add(new RideType(LYFT_PREMIER, getDisplayNameForRideType(LYFT_PREMIER), 4, null, null));
+            rideTypes.add(new RideType(LYFT_LUX, getDisplayNameForRideType(LYFT_LUX), 4, null, null));
+            rideTypes.add(new RideType(LYFT_LUX_SUV, getDisplayNameForRideType(LYFT_LUX_SUV), 6, null, null));
         } else {
-            rideTypes.add(new RideType(rideType, getDisplayNameForRideType(rideType), 6, null, null, null));
+            rideTypes.add(new RideType(rideType, getDisplayNameForRideType(rideType), 6, null, null));
         }
         RideTypesResponse rideTypesResponse = new RideTypesResponse(rideTypes);
         return delegate.returningResponse(rideTypesResponse).getRidetypes(lat, lng, rideType);
@@ -143,7 +143,7 @@ public class MockLyftPublicApi implements LyftPublicApi
     }
 
     private static CostEstimate createCostEstimateForRideType(String rideType) {
-        return new CostEstimate(rideType, getDisplayNameForRideType(rideType), "USD", null, null, null, null, null, null, null);
+        return new CostEstimate(rideType, getDisplayNameForRideType(rideType), "USD", null, null, null, null, null);
     }
 
     private static boolean isValidRideType(String rideType) {

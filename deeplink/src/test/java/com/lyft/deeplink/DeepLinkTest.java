@@ -7,7 +7,7 @@ import static junit.framework.Assert.assertEquals;
 public class DeepLinkTest {
 
     private static final String CLIENT_ID = "clientId";
-    private static final String RIDETYPE = "ridetype";
+    private static final RideTypeEnum RIDETYPE = RideTypeEnum.STANDARD;
     private static final Double PICKUP_LAT = 1.0;
     private static final Double PICKUP_LNG = 2.0;
     private static final Double DROPOFF_LAT = 3.0;
@@ -20,7 +20,7 @@ public class DeepLinkTest {
     public void createDeepLinkStringTest_full() {
         DeepLinkParams deepLinkParams = new DeepLinkParams.Builder()
                 .setClientId(CLIENT_ID)
-                .setRideType(RIDETYPE)
+                .setRideTypeEnum(RIDETYPE)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .setPickupAddress(PICKUP_ADDR)
@@ -29,7 +29,7 @@ public class DeepLinkTest {
                 .build();
 
         String deeplinkString = DeepLink.createDeepLinkString(deepLinkParams);
-        assertEquals("lyft://ridetype?id=" + RIDETYPE + "&pickup[latitude]=" + PICKUP_LAT + "&pickup[longitude]=" +
+        assertEquals("lyft://ridetype?id=" + RIDETYPE.getRideTypeKey() + "&pickup[latitude]=" + PICKUP_LAT + "&pickup[longitude]=" +
                 PICKUP_LNG + "&pickup[address]=" + PICKUP_ADDR + "&destination[latitude]=" + DROPOFF_LAT +
                 "&destination[longitude]=" + DROPOFF_LNG + "&destination[address]=" + DROPOFF_ADDR + "&partner=" + CLIENT_ID +
                 "&credits=" + PROMO_CODE,
@@ -39,13 +39,13 @@ public class DeepLinkTest {
     @Test
     public void createDeepLinkStringTest_noClientId() {
         DeepLinkParams deepLinkParams = new DeepLinkParams.Builder()
-                .setRideType(RIDETYPE)
+                .setRideTypeEnum(RIDETYPE)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
 
         String deeplinkString = DeepLink.createDeepLinkString(deepLinkParams);
-        assertEquals("lyft://ridetype?id=" + RIDETYPE + "&pickup[latitude]=" + PICKUP_LAT + "&pickup[longitude]=" + PICKUP_LNG
+        assertEquals("lyft://ridetype?id=" + RIDETYPE.getRideTypeKey() + "&pickup[latitude]=" + PICKUP_LAT + "&pickup[longitude]=" + PICKUP_LNG
                         + "&destination[latitude]=" + DROPOFF_LAT + "&destination[longitude]=" + DROPOFF_LNG,
                 deeplinkString);
     }
@@ -53,13 +53,13 @@ public class DeepLinkTest {
     @Test
     public void createDeepLinkStringTest_noPickupLocation() {
         DeepLinkParams deepLinkParams = new DeepLinkParams.Builder()
-                .setRideType(RIDETYPE)
+                .setRideTypeEnum(RIDETYPE)
                 .setPickupLocation(PICKUP_LAT, null)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
 
         String deeplinkString = DeepLink.createDeepLinkString(deepLinkParams);
-        assertEquals("lyft://ridetype?id=" + RIDETYPE + "&destination[latitude]=" + DROPOFF_LAT + "&destination[longitude]=" + DROPOFF_LNG,
+        assertEquals("lyft://ridetype?id=" + RIDETYPE.getRideTypeKey() + "&destination[latitude]=" + DROPOFF_LAT + "&destination[longitude]=" + DROPOFF_LNG,
                 deeplinkString);
     }
 
@@ -67,13 +67,13 @@ public class DeepLinkTest {
     public void createDeepLinkStringTest_addressOnly() {
         DeepLinkParams deepLinkParams = new DeepLinkParams.Builder()
                 .setClientId(CLIENT_ID)
-                .setRideType(RIDETYPE)
+                .setRideTypeEnum(RIDETYPE)
                 .setPickupAddress(PICKUP_ADDR)
                 .setDropoffAddress(DROPOFF_ADDR)
                 .build();
 
         String deeplinkString = DeepLink.createDeepLinkString(deepLinkParams);
-        assertEquals("lyft://ridetype?id=" + RIDETYPE + "&pickup[address]=" + PICKUP_ADDR +
+        assertEquals("lyft://ridetype?id=" + RIDETYPE.getRideTypeKey() + "&pickup[address]=" + PICKUP_ADDR +
                 "&destination[address]=" + DROPOFF_ADDR + "&partner=" + CLIENT_ID,
                 deeplinkString);
     }

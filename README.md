@@ -19,14 +19,14 @@ repositories {
 }
 
 dependencies {
-    compile 'com.lyft:lyft-android-sdk:1.0.3'
+    compile 'com.lyft:lyft-android-sdk:2.0.0'
 }
 ```
 
 If you only want to use the [Lyft API Wrapper](https://github.com/lyft/lyft-android-sdk#lyft-api-wrapper) or [Deeplink](https://github.com/lyft/lyft-android-sdk#deeplinking) portion of the SDK, you can pull them individually.
 ```gradle
-compile 'com.lyft:lyft-android-sdk-networking:1.0.3'  // Lyft API Wrapper
-compile 'com.lyft:lyft-android-sdk-deeplink:1.0.3'    // Deeplink
+compile 'com.lyft:lyft-android-sdk-networking:2.0.0'  // Lyft API Wrapper
+compile 'com.lyft:lyft-android-sdk-deeplink:2.0.0'    // Deeplink
 ```
 
 ### Maven:
@@ -34,7 +34,7 @@ compile 'com.lyft:lyft-android-sdk-deeplink:1.0.3'    // Deeplink
 <dependency>
   <groupId>com.lyft</groupId>
   <artifactId>lyft-android-sdk</artifactId>
-  <version>1.0.3</version>
+  <version>2.0.0</version>
   <type>aar</type>
 </dependency>
 ```
@@ -66,7 +66,7 @@ lyftButton.setApiConfig(apiConfig);
 RideParams.Builder rideParamsBuilder = new RideParams.Builder()
         .setPickupLocation(37.7766048, -122.3943576)
         .setDropoffLocation(37.759234, -122.4135125);
-rideParamsBuilder.setRideTypeEnum(RideTypeEnum.CLASSIC);
+rideParamsBuilder.setRideTypeEnum(RideTypeEnum.STANDARD);
 
 lyftButton.setRideParams(rideParamsBuilder.build());
 lyftButton.load();
@@ -80,7 +80,7 @@ RideParams.Builder rideParamsBuilder = new RideParams.Builder()
 ```
 
 ### Ride types
-Lyft is growing very quickly and is currently available in [these cities](https://www.lyft.com/cities). Please keep in mind that some ride types (such as Lyft Line) are not yet available in all Lyft cities. If you set the ride type of the button  and it happens to be unavailable, the button will default to the Lyft Classic ride type. You can utilize the [`/v1/ridetypes`](https://developer.lyft.com/docs/availability-ride-types) endpoint to get a list of the available ride types in an area.
+Lyft is growing very quickly and is currently available in [these cities](https://www.lyft.com/cities). Please keep in mind that some ride types (such as Lyft Line) are not yet available in all Lyft cities. If you set the ride type of the button  and it happens to be unavailable, the button will default to the Lyft Standard ride type. You can utilize the [`/v1/ridetypes`](https://developer.lyft.com/docs/availability-ride-types) endpoint to get a list of the available ride types in an area.
 
 ### Button styles
 To specify the button style via XML, use the `lyft:lyftStyle` attribute or set it programmatically:
@@ -95,10 +95,10 @@ There are 5 styles to pick from:
 ## Lyft API Wrapper
 The SDK provides wrapper methods around Lyft's REST APIs - this can be helpful when you want to build a more custom integration with the Lyft platform vs making HTTP requests directly.
 
-The SDK uses Square's [Retrofit 2](http://square.github.io/retrofit/) networking library. For each [Lyft Public API endpoint](http://petstore.swagger.io/?url=https://api.lyft.com/v1/spec#!/Public/), there is a corresponding Java method. The return type is a `Call` object which can be executed synchronously or asynchronously. See [LyftPublicApi.java](https://github.com/lyft/lyft-android-sdk/blob/master/networking/src/main/java/com/lyft/networking/apis/LyftPublicApi.java) for all the API methods.
+The SDK uses Square's [Retrofit 2](http://square.github.io/retrofit/) networking library. For each Lyft API endpoint, there is a corresponding Java method. The return type is a `Call` object which can be executed synchronously or asynchronously. See [LyftApi.java](https://github.com/lyft/lyft-android-sdk/blob/master/networking/src/main/java/com/lyft/networking/apis/LyftApi.java) for all the API methods.
 
 ```java
-LyftPublicApi lyftPublicApi = new LyftApiFactory(apiConfig).getLyftPublicApi();
+LyftApi lyftPublicApi = new LyftApiFactory(apiConfig).getLyftApi();
 Call<EtaEstimateResponse> etaCall = lyftPublicApi.getEtas(37.7766048, -122.3943576, "lyft");
 ```
 Asynchronous:
@@ -124,7 +124,7 @@ Eta eta = etaEstimateResponse.eta_estimates.get(0);
 ```
 
 ### RxJava Observables
-If you already use RxJava (your app must have it as a dependency), then you can obtain an `Observable` instead of a `Call` object. Simply use [LyftPublicApiRx](https://github.com/lyft/lyft-android-sdk/blob/master/networking/src/main/java/com/lyft/networking/apis/LyftPublicApiRx.java) instead of LyftPublicApi.
+If you already use RxJava (your app must have it as a dependency), then you can obtain an `Observable` instead of a `Call` object. Simply use [LyftApiRx](https://github.com/lyft/lyft-android-sdk/blob/master/networking/src/main/java/com/lyft/networking/apis/LyftApiRx.java) instead of LyftApi.
 
 ```java
 LyftPublicApiRx lyftPublicApiRx = new LyftApiFactory(apiConfig).getLyftPublicApiRx();
@@ -139,7 +139,7 @@ The SDK provides direct [deeplinking](https://developer.lyft.com/docs/deeplinkin
 ```java
 DeepLinkParams deepLinkParams = new DeepLinkParams.Builder()
         .setClientId("your_client_id")
-        .setRideType("lyft_line")
+        .setRideType(RideTypeEnum.SHARED)
         .setPickupLocation(37.7766048, -122.3943576)
         .setDropoffLocation(37.759234, -122.4135125)
         .build();

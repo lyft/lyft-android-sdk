@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 public class DeepLinkParams {
 
     private final String clientId;
-    private final String rideType;
+    private final RideTypeEnum rideTypeEnum;
     private final String promoCode;
     private final String pickupAddr;
     private final Double pickupLat;
@@ -14,10 +14,17 @@ public class DeepLinkParams {
     private final Double dropoffLat;
     private final Double dropoffLng;
 
-    private DeepLinkParams(String clientId, String rideType, String promoCode, String pickupAddr, Double pickupLat, Double pickupLng,
-            String dropoffAddr, Double dropoffLat, Double dropoffLng) {
+    private DeepLinkParams(String clientId,
+                           RideTypeEnum rideTypeEnum,
+                           String promoCode,
+                           String pickupAddr,
+                           Double pickupLat,
+                           Double pickupLng,
+                           String dropoffAddr,
+                           Double dropoffLat,
+                           Double dropoffLng) {
         this.clientId = clientId;
-        this.rideType = rideType;
+        this.rideTypeEnum = rideTypeEnum;
         this.promoCode = promoCode;
         this.pickupAddr = pickupAddr;
         this.pickupLat = pickupLat;
@@ -32,9 +39,8 @@ public class DeepLinkParams {
         return clientId;
     }
 
-    @Nullable
-    public String getRideType() {
-        return rideType;
+    public RideTypeEnum getRideTypeEnum() {
+        return rideTypeEnum;
     }
 
     @Nullable
@@ -72,6 +78,10 @@ public class DeepLinkParams {
         return dropoffLng;
     }
 
+    public boolean isRideTypeSet() {
+        return rideTypeEnum != null;
+    }
+
     public boolean isPickupLatLngSet() {
         return pickupLat != null && pickupLng != null;
     }
@@ -91,7 +101,7 @@ public class DeepLinkParams {
     public static class Builder {
 
         private String clientId;
-        private String rideType = "lyft";
+        private RideTypeEnum rideTypeEnum = RideTypeEnum.STANDARD;
         private String promoCode;
         private String pickupAddr;
         private Double pickupLat;
@@ -101,7 +111,7 @@ public class DeepLinkParams {
         private Double dropoffLng;
 
         public DeepLinkParams build() {
-            return new DeepLinkParams(clientId, rideType, promoCode, pickupAddr, pickupLat, pickupLng, dropoffAddr, dropoffLat, dropoffLng);
+            return new DeepLinkParams(clientId, rideTypeEnum, promoCode, pickupAddr, pickupLat, pickupLng, dropoffAddr, dropoffLat, dropoffLng);
         }
 
         public Builder setClientId(String clientId) {
@@ -109,8 +119,8 @@ public class DeepLinkParams {
             return this;
         }
 
-        public Builder setRideType(String rideType) {
-            this.rideType = rideType;
+        public Builder setRideTypeEnum(RideTypeEnum rideTypeEnum) {
+            this.rideTypeEnum = rideTypeEnum;
             return this;
         }
 

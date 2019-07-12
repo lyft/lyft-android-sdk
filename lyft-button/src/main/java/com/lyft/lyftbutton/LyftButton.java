@@ -40,11 +40,11 @@ public class LyftButton extends LinearLayout {
 
         setupAndInflate();
 
-        lyftIcon = (ImageView) findViewById(R.id.lyft_icon);
-        getRideLabel = (TextView) findViewById(R.id.get_ride_label);
-        rideTypeEtaText = (TextView) findViewById(R.id.ridetype_eta_text);
-        primeTimeIcon = (ImageView) findViewById(R.id.prime_time_icon);
-        costText = (TextView) findViewById(R.id.cost_text);
+        lyftIcon = findViewById(R.id.lyft_icon);
+        getRideLabel = findViewById(R.id.get_ride_label);
+        rideTypeEtaText = findViewById(R.id.ridetype_eta_text);
+        primeTimeIcon = findViewById(R.id.prime_time_icon);
+        costText = findViewById(R.id.cost_text);
         costContainer = findViewById(R.id.cost_container);
 
         applyLyftStyle(context, attrs);
@@ -100,7 +100,7 @@ public class LyftButton extends LinearLayout {
     public void setApiConfig(@NotNull ApiConfig apiConfig) {
         Preconditions.checkNotNull(apiConfig, "ApiConfig must not be null.");
         this.apiConfig = apiConfig;
-        callManager = new LyftButtonCallManager(apiConfig.getClientId(), new LyftApiFactory(apiConfig).getLyftPublicApi(),
+        callManager = new LyftButtonCallManager(apiConfig.getClientId(), new LyftApiFactory(apiConfig).getLyftApi(),
                 new GoogleApiBuilder().build(), Executors.newCachedThreadPool());
     }
 

@@ -1,5 +1,6 @@
 package com.lyft.lyftbutton;
 
+import com.lyft.deeplink.RideTypeEnum;
 import org.jetbrains.annotations.Nullable;
 
 public class RideParams {
@@ -86,7 +87,7 @@ public class RideParams {
 
     public static class Builder {
 
-        private RideTypeEnum rideTypeEnum = RideTypeEnum.CLASSIC;
+        private RideTypeEnum rideTypeEnum = RideTypeEnum.STANDARD;
         private String pickupAddr;
         private Double pickupLat;
         private Double pickupLng;

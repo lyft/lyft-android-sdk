@@ -1,14 +1,15 @@
 package com.lyft.lyftbutton;
 
+import com.lyft.deeplink.RideTypeEnum;
 import com.lyft.networking.apiObjects.CostEstimate;
 import com.lyft.networking.apiObjects.CostEstimateResponse;
 import com.lyft.networking.apiObjects.Eta;
 import com.lyft.networking.apiObjects.EtaEstimateResponse;
 import com.lyft.networking.apiObjects.GoogleLatLng;
-import com.lyft.networking.apis.LyftPublicApi;
+import com.lyft.networking.apis.LyftApi;
 import com.lyft.networking.apis.internal.GoogleApi;
 import com.lyft.testutils.MockGoogleApi;
-import com.lyft.testutils.MockLyftPublicApi;
+import com.lyft.testutils.MockLyftApi;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +48,7 @@ public class LyftButtonCallManagerTest {
     private final ArgumentCaptor<Eta> etaArgumentCaptor = ArgumentCaptor.forClass(Eta.class);
     private final ArgumentCaptor<CostEstimate> costEstimateArgumentCaptor = ArgumentCaptor.forClass(CostEstimate.class);
     private LyftButtonCallManager callManager;
-    private MockLyftPublicApi lyftPublicApi;
+    private MockLyftApi lyftPublicApi;
     private MockGoogleApi googleApi;
 
     @Mock
@@ -57,7 +58,7 @@ public class LyftButtonCallManagerTest {
     public void setup() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(LyftPublicApi.API_ROOT)
+                .baseUrl(LyftApi.API_ROOT)
                 .build();
 
         NetworkBehavior behavior = NetworkBehavior.create();
@@ -67,8 +68,8 @@ public class LyftButtonCallManagerTest {
         MockRetrofit mockRetrofit = new MockRetrofit.Builder(retrofit)
                 .networkBehavior(behavior)
                 .build();
-        BehaviorDelegate<LyftPublicApi> lyftApidelegate = mockRetrofit.create(LyftPublicApi.class);
-        lyftPublicApi = spy(new MockLyftPublicApi(lyftApidelegate));
+        BehaviorDelegate<LyftApi> lyftApidelegate = mockRetrofit.create(LyftApi.class);
+        lyftPublicApi = spy(new MockLyftApi(lyftApidelegate));
 
         BehaviorDelegate<GoogleApi> googleApiDelegate = mockRetrofit.create(GoogleApi.class);
         googleApi = spy(new MockGoogleApi(googleApiDelegate));
@@ -125,7 +126,7 @@ public class LyftButtonCallManagerTest {
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         verify(callback).onSuccess(etaArgumentCaptor.capture());
-        assertEquals(RideTypeEnum.CLASSIC.toString(), etaArgumentCaptor.getValue().ride_type);
+        assertEquals(RideTypeEnum.STANDARD.getRideTypeKey(), etaArgumentCaptor.getValue().ride_type);
     }
 
     @Test
@@ -141,7 +142,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_loadEtaAndCostForLyftLine() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.LINE)
+                .setRideTypeEnum(RideTypeEnum.SHARED)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -152,7 +153,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_loadEtaAndCostForLyftPlus() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -202,10 +203,10 @@ public class LyftButtonCallManagerTest {
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         verify(callback).onSuccess(etaArgumentCaptor.capture());
-        assertEquals(rideParams.getRideTypeEnum().toString(), etaArgumentCaptor.getValue().ride_type);
+        assertEquals(rideParams.getRideTypeEnum().getRideTypeKey(), etaArgumentCaptor.getValue().ride_type);
 
         verify(callback).onSuccess(costEstimateArgumentCaptor.capture());
-        assertEquals(rideParams.getRideTypeEnum().toString(), costEstimateArgumentCaptor.getValue().ride_type);
+        assertEquals(rideParams.getRideTypeEnum().getRideTypeKey(), costEstimateArgumentCaptor.getValue().ride_type);
     }
 
     @Test
@@ -228,13 +229,13 @@ public class LyftButtonCallManagerTest {
 
         assertTrue(countDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         verify(callback).onSuccess(etaArgumentCaptor.capture());
-        assertEquals(RideTypeEnum.CLASSIC.toString(), etaArgumentCaptor.getValue().ride_type);
+        assertEquals(RideTypeEnum.STANDARD.getRideTypeKey(), etaArgumentCaptor.getValue().ride_type);
     }
 
     @Test
     public void loadTest_etaFailureNullResponse() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -254,7 +255,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_etaFailureNullList() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -273,7 +274,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_etaFailureEmptyList() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -293,14 +294,14 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_etaFailureNullEtaSeconds() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
         callManager.setRideParams(rideParams);
 
         List<Eta> etas = new ArrayList<>();
-        Eta eta = new Eta(RideTypeEnum.PLUS.toString(), RideTypeEnum.PLUS.getDisplayName(), null);
+        Eta eta = new Eta(RideTypeEnum.XL.getRideTypeKey(), RideTypeEnum.XL.getDisplayName(), null);
         etas.add(eta);
         lyftPublicApi.setCustomEtaEstimateResponse(new EtaEstimateResponse(etas));
 
@@ -316,7 +317,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_costFailureNullResponse() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -336,7 +337,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_costFailureNullList() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();
@@ -356,7 +357,7 @@ public class LyftButtonCallManagerTest {
     @Test
     public void loadTest_costFailureEmptyList() throws InterruptedException {
         RideParams rideParams = new RideParams.Builder()
-                .setRideTypeEnum(RideTypeEnum.PLUS)
+                .setRideTypeEnum(RideTypeEnum.XL)
                 .setPickupLocation(PICKUP_LAT, PICKUP_LNG)
                 .setDropoffLocation(DROPOFF_LAT, DROPOFF_LNG)
                 .build();

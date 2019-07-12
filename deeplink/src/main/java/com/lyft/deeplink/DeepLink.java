@@ -9,7 +9,7 @@ import android.net.Uri;
 public class DeepLink {
 
     private static final String LYFT_PACKAGE_NAME = "me.lyft.android";
-    private static final String SDK_VERSION = "1.0.3";
+    private static final String SDK_VERSION = "2.0.0";
 
     /**
      * @return true if Lyft app is installed on the device.
@@ -63,7 +63,12 @@ public class DeepLink {
     static String createDeepLinkString(DeepLinkParams deepLinkParams) {
         StringBuilder sb = new StringBuilder();
         sb.append("lyft://ridetype?id=");
-        sb.append(deepLinkParams.getRideType());
+
+        if (deepLinkParams.isRideTypeSet()) {
+            sb.append(deepLinkParams.getRideTypeEnum().getRideTypeKey());
+        } else {
+            sb.append(RideTypeEnum.STANDARD.getRideTypeKey());
+        }
 
         if (deepLinkParams.isPickupLatLngSet()) {
             sb.append("&pickup[latitude]=");

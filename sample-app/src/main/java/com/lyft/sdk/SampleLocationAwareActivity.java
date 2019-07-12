@@ -5,25 +5,25 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.lyft.deeplink.RideTypeEnum;
 import com.lyft.lyftbutton.LyftButton;
 import com.lyft.lyftbutton.RideParams;
-import com.lyft.lyftbutton.RideTypeEnum;
 import com.lyft.networking.ApiConfig;
 import com.lyft.networking.LyftApiFactory;
 import com.lyft.networking.apiObjects.RideType;
 import com.lyft.networking.apiObjects.RideTypesResponse;
-import com.lyft.networking.apis.LyftPublicApi;
+import com.lyft.networking.apis.LyftApi;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +39,7 @@ public class SampleLocationAwareActivity extends Activity {
     private final Set<Call> callSet = new HashSet<>();
     private Spinner rideTypeSpinner;
     private ArrayAdapter<String> adapter;
-    private LyftPublicApi lyftPublicApi;
+    private LyftApi lyftApi;
     private LyftButton lyftButton;
     private GoogleApiClient googleApiClient;
     private double currentLat = 0.0;
@@ -57,7 +57,7 @@ public class SampleLocationAwareActivity extends Activity {
 
         lyftButton = (LyftButton) findViewById(R.id.lyft_button);
         lyftButton.setApiConfig(apiConfig);
-        lyftPublicApi = new LyftApiFactory(apiConfig).getLyftPublicApi();
+        lyftApi = new LyftApiFactory(apiConfig).getLyftApi();
 
         initializeRideTypeSpinner();
         setupLocationApi();
@@ -139,7 +139,7 @@ public class SampleLocationAwareActivity extends Activity {
     }
 
     private void getRideTypesAtCurrentLocation() {
-        Call<RideTypesResponse> call = lyftPublicApi.getRidetypes(currentLat, currentLng, RideTypeEnum.ALL.toString());
+        Call<RideTypesResponse> call = lyftApi.getRidetypes(currentLat, currentLng, null);
         callSet.add(call);
         call.enqueue(new Callback<RideTypesResponse>() {
             @Override
@@ -152,7 +152,7 @@ public class SampleLocationAwareActivity extends Activity {
                     for (RideType rideType : rideTypes) {
                         adapter.add(rideType.display_name);
                     }
-                    rideTypeSpinner.setSelection(adapter.getPosition(RideTypeEnum.CLASSIC.getDisplayName()));
+                    rideTypeSpinner.setSelection(adapter.getPosition(RideTypeEnum.STANDARD.getDisplayName()));
                 } else {
                     adapter.add("LYFT N/A");
                 }
@@ -171,7 +171,7 @@ public class SampleLocationAwareActivity extends Activity {
     }
 
     private void refreshButton(String selectedRideType) {
-        RideTypeEnum rideTypeEnum = RideTypeEnum.CLASSIC;
+        RideTypeEnum rideTypeEnum = RideTypeEnum.STANDARD;
 
         for (RideTypeEnum rte : RideTypeEnum.values()) {
             if (rte.getDisplayName().equals(selectedRideType)) {

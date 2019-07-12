@@ -1,10 +1,15 @@
 package com.lyft.networking.apiObjects;
 
 import com.google.gson.annotations.SerializedName;
+import com.lyft.networking.apiObjects.internal.Validatable;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
-public class EtaEstimateResponse {
+public class EtaEstimateResponse implements Validatable {
 
+    @NotNull
     @SerializedName("eta_estimates")
     public final List<Eta> eta_estimates;
 
@@ -20,5 +25,19 @@ public class EtaEstimateResponse {
         sb.append("  eta_estimates: ").append(eta_estimates).append("\n");
         sb.append("}\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean isValid() {
+        if (eta_estimates == null) {
+            return false;
+        }
+
+        for (Eta etaEstimate : eta_estimates) {
+            if (!etaEstimate.isValid()) {
+                return false;
+            }
+        }
+        return true;
     }
 }
