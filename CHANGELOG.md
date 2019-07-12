@@ -1,4 +1,4 @@
-Version 2.0.0
+Version 2.0.0 *(2019-07-12)*
 ----------------------------
 * Update Gradle version from `2.14.1` to `4.10.1`, and Android Gradle Plugin from `2.2.2` to `3.3.2`
 * The compile SDK target for Android has been bumped to API 28.
@@ -13,7 +13,7 @@ Version 2.0.0
 * The RxJava call adapter for Retrofit has been updated to RxJava2. Users of the RxJava Retrofit interface will have to update their codebase to take RxJava2 Observables.
 * All models returned by network calls have been documented with JetBrain `@Nullable` and `@NotNull` annotations.
 * `LyftApiFactory` now by default generates a `LyftApi` that **throws a `PartialResponseException`** when the server response doesn't abide by the `@Nullable` and `@NotNull` annotations of the parsed model. The client must be able to handle a `PartialResponseException` when calling for Lyft endpoints.
-  * If the client wishes to handle null checking manually, call `LyftApiFactory#getUnchekedLyftApi` to get a Retrofit client that does not massage responses.
+  * If the client wishes to handle null checking manually, call `LyftApiFactory#getUncheckedLyftApi` to get a Retrofit client that does not massage responses.
 * `RideTypeEnum` has been moved from the Lyft Button module to the Deeplink module, with the following changes:
   * `toString()` is no longer valid when fetching for a ride type key. Use `RideTypeEnum#getRideTypeKey()` instead.
   * `getDisplayName()` is still valid for fetching human readable text for each ride type.
@@ -21,8 +21,8 @@ Version 2.0.0
   * `LINE` has been replaced by `SHARED`
   * `CLASSIC` has been replaced by `STANDARD`
   * `PLUS` has been replaced by `XL`
-  * `LUX`, `LUX_BLACK`, `LUX_BLACK_XL` has been added into `RideTypeEnum`.
-  * `null` can be used in place of `RideTypeEnum.ALL` in existing usages. 
+  * `LUX`, `LUX_BLACK`, `LUX_BLACK_XL` has been added into `RideTypeEnum`
+  * `null` can be used in place of `RideTypeEnum.ALL` in existing usages 
 * `DeepLinkParams` and its builder now takes in `RideTypeEnum` to specify a ride type, instead of a `String`.
 
 Version 1.0.3 *(2017-02-21)*
