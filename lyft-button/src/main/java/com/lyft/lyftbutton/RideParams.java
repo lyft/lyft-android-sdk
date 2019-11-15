@@ -110,6 +110,7 @@ public class RideParams {
             this.dropoffAddr = rideParams.dropoffAddr;
             this.dropoffLat = rideParams.dropoffLat;
             this.dropoffLng = rideParams.dropoffLng;
+            this.promoCode = rideParams.promoCode;
         }
 
         public Builder setRideTypeEnum(RideTypeEnum rideTypeEnum) {
