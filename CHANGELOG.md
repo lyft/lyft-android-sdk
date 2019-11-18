@@ -1,3 +1,7 @@
+Version 2.0.1 *(2019-11-18)*
+----------------------------
+* Fixed a bug that prevented promo codes from being applied to the Lyft Button.
+
 Version 2.0.0 *(2019-07-12)*
 ----------------------------
 * Update Gradle version from `2.14.1` to `4.10.1`, and Android Gradle Plugin from `2.2.2` to `3.3.2`
