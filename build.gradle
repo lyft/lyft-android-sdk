@@ -39,7 +39,7 @@ subprojects {
     ext.googlePlayVersion = '17.0.0'
     ext.jetbrainsVersion = '15.0'
     ext.junitVersion = '4.12'
-    ext.lyftSdkVersionCode = 2
+    ext.lyftSdkVersionCode = 3
     ext.lyftSdkVersionName = VERSION_NAME
     ext.mockitoVersion = '2.25.0'
     ext.okhttpVersion = '3.3.1'
