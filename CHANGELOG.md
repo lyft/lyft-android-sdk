@@ -1,3 +1,7 @@
+Version 2.0.1 *(2020-09-20)*
+----------------------------
+* Fixed a bug that caused an NPE when attempting to display a price on the Lyft Button.
+
 Version 2.0.1 *(2019-11-18)*
 ----------------------------
 * Fixed a bug that prevented promo codes from being applied to the Lyft Button.
