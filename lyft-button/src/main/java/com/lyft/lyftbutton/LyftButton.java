@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -174,11 +175,22 @@ public class LyftButton extends LinearLayout {
 
     private void displayEta(Eta eta) {
         int etaMinutes = eta.eta_seconds / 60;
-        rideTypeEtaText.setText(String.valueOf(
-                getResources().getString(R.string.ridetype_eta_text, eta.display_name, etaMinutes)));
+        rideTypeEtaText.setText(getResources().getString(R.string.ridetype_eta_text, eta.display_name, etaMinutes));
     }
 
     private void displayCost(CostEstimate costEstimate) {
+        if (costEstimate.estimated_cost_cents_max == null
+                || costEstimate.estimated_cost_cents_min == null) {
+            Log.w(
+                    LyftButton.class.getName(),
+                    String.format(
+                            "Required fields from Cost Estimate has returned as null. Estimated cost must be non-null to display the cost. %s",
+                            costEstimate.toString())
+            );
+
+            return;
+        }
+
         costContainer.setVisibility(VISIBLE);
 
         if (TextUtils.isEmpty(costEstimate.primetime_percentage) || "0%".equals(costEstimate.primetime_percentage)) {
@@ -190,10 +202,10 @@ public class LyftButton extends LinearLayout {
         float minCost = costEstimate.estimated_cost_cents_min / 100f;
         float maxCost = costEstimate.estimated_cost_cents_max / 100f;
         if (minCost == maxCost) {
-            costText.setText(String.valueOf(getResources().getString(R.string.fixed_cost_amount, minCost)));
+            costText.setText(getResources().getString(R.string.fixed_cost_amount, minCost));
         } else {
             costText.setText(
-                    String.valueOf(getResources().getString(R.string.cost_estimate_range, (int) minCost, (int) maxCost)));
+                    getResources().getString(R.string.cost_estimate_range, (int) minCost, (int) maxCost));
         }
     }
 
