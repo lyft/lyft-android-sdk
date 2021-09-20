@@ -1,4 +1,4 @@
-Version 2.0.1 *(2020-09-20)*
+Version 2.0.2 *(2020-09-20)*
 ----------------------------
 * Fixed a bug that caused an NPE when attempting to display a price on the Lyft Button.
 
