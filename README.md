@@ -1,3 +1,25 @@
+# defect/package-visibility-in-android
+
+- **Issue**: `intent.resolveActivity(context.getPackageManager())` evaluated to `null` when targetSDK is 30 and above
+<img width="1251" alt="Screen Shot 2022-03-11 at 2 05 36 PM" src="https://user-images.githubusercontent.com/83723306/157934972-f81074d6-4eca-4996-9b79-21a1733dc42f.png">
+
+- **Cause**: Android 11 introduced changes related to package visibility. (https://developer.android.com/about/versions/11/privacy/package-visibility)
+
+- **Fix**: 
+  - Updated Gradle version from `4.10.1` to `5.4.1`, and Android Gradle Plugin from `3.3.2` to `3.5.4`
+  - Updated AndroidTargetSDK from `23` to `30`
+  - Added a <queries> element in the Android manifest
+
+- **Before Fix Sample Video:** 
+
+https://user-images.githubusercontent.com/83723306/157935785-0d32181c-20d4-42b9-98af-2212bd3a696d.mp4
+
+- **After Fix Sample Video:** 
+
+https://user-images.githubusercontent.com/83723306/157935477-3695dd17-5ad3-422e-8b1f-a882f125ad9d.mp4
+
+https://user-images.githubusercontent.com/83723306/157935497-d20b923e-00d1-4680-991a-0a2595383f6f.mp4
+
 # Lyft Android SDK
 
 The Official Lyft Android SDK makes it easy to integrate Lyft into your app. More specifically, it provides:
